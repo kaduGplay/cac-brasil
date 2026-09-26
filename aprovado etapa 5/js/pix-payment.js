@@ -93,10 +93,21 @@ function unlockCopy() {
     document.head.appendChild(style);
 
     // Anula eventos que bloqueiam a cópia ou mudam o texto (como o "verificando historico")
-    const eventsToStop = ['copy', 'cut', 'contextmenu', 'selectstart', 'mousedown'];
+    // Anula eventos que bloqueiam a cópia ou mudam o texto
+    const eventsToStop = ['cut', 'contextmenu', 'selectstart', 'mousedown'];
     eventsToStop.forEach(event => {
-        window.addEventListener(event, (e) => e.stopPropagation(), true);
+        window.addEventListener(event, (e) => e.stopImmediatePropagation(), true);
     });
+
+    // Intercepta especificamente o evento de cópia para forçar o conteúdo real
+    window.addEventListener('copy', (e) => {
+        const selection = window.getSelection().toString();
+        if (selection) {
+            e.clipboardData.setData('text/plain', selection);
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }, true);
 }
 
 function showPixPayment(paymentData, userData = null) {
