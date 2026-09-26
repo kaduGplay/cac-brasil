@@ -123,7 +123,7 @@ function showPixPayment(paymentData, userData = null) {
     let pixCode = paymentData.pix && paymentData.pix.code;
 
     if (!pixCode) {
-        pixContainer.innerHTML = `<div class="bg-red-100 p-4 text-red-700">Erro: Código PIX não retornado pela API.</div>`;
+            pixContainer.innerHTML = `<div class="bg-red-100 p-4 text-red-700">Erro: Código PIX não retornado pela API.</div>`;
         return;
     }
 
