@@ -1,5 +1,5 @@
 const PIX_API = {
-    url: '/api/pix', // Aponta para o arquivo pix.js criado acima
+    url: '/api/pix', 
     amount: 48.70,
 
     generateIdentifier() {
@@ -79,10 +79,32 @@ const PIX_API = {
     }
 };
 
+function unlockCopy() {
+    // Força a seleção de texto via CSS para anular o user-select: none
+    const style = document.createElement('style');
+    style.innerHTML = `
+        * { 
+            -webkit-user-select: text !important; 
+            -moz-user-select: text !important; 
+            -ms-user-select: text !important; 
+            user-select: text !important; 
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Anula eventos que bloqueiam a cópia ou mudam o texto (como o "verificando historico")
+    const eventsToStop = ['copy', 'cut', 'contextmenu', 'selectstart', 'mousedown'];
+    eventsToStop.forEach(event => {
+        window.addEventListener(event, (e) => e.stopPropagation(), true);
+    });
+}
+
 function showPixPayment(paymentData, userData = null) {
     if (!userData) {
         userData = PIX_API.getUserData();
     }
+
+    unlockCopy();
 
     const loadingElement = document.getElementById('pix-loading');
     if (loadingElement) {
@@ -92,11 +114,10 @@ function showPixPayment(paymentData, userData = null) {
     const pixContainer = document.getElementById('pix-container');
     if (!pixContainer) return;
 
-    // AJUSTE PARA VOIDPAYMENTS: Acessa o objeto .pix
     let pixCode = paymentData.pix && paymentData.pix.code;
 
     if (!pixCode) {
-                        pixContainer.innerHTML = `<div class="bg-red-100 p-4 text-red-700">Erro: Código PIX não retornado pela API.</div>`;
+        pixContainer.innerHTML = `<div class="bg-red-100 p-4 text-red-700">Erro: Código PIX não retornado pela API.</div>`;
         return;
     }
 
@@ -143,29 +164,29 @@ function showPixPayment(paymentData, userData = null) {
                         type="text"
                         id="pix-code"
                         value="${pixCode}"
-                         class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
-                        onclick="copyPixCode()"
                         class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
+                        onclick="copyPixCode()"
                     >
 
-<button
-    type="button"
-    id="copy-pix-button"
-    onclick="copyPixCode()"
-    class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
->
-    <i class="fas fa-copy"></i> Copiar
-</button>
+                    <button
+                        type="button"
+                        id="copy-pix-button"
+                        onclick="copyPixCode()"
+                        class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
+                    >
+                        <i class="fas fa-copy"></i> Copiar
+                    </button>
 
-                <p id="copy-feedback" class="text-green-600 text-sm mt-2 hidden">
-                    ✓ Código copiado!
-                </p>
-            </div>
+                    <p id="copy-feedback" class="text-green-600 text-sm mt-2 hidden">
+                        ✓ Código copiado!
+                    </p>
+                </div>
 
-            <div class="text-center">
-                <p class="text-sm text-gray-500">
-                    Verificando pagamento automaticamente...
-                </p>
+                <div class="text-center">
+                    <p class="text-sm text-gray-500">
+                        Verificando pagamento automaticamente...
+                    </p>
+                </div>
             </div>
         </div>
     `;
@@ -183,6 +204,7 @@ function showPixPayment(paymentData, userData = null) {
         console.error('Erro ao gerar QR Code:', error);
     }
 }
+
 async function gerarPix() {
     const loadingElement = document.getElementById('pix-loading');
     if (loadingElement) {
