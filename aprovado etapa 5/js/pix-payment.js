@@ -80,32 +80,27 @@ const PIX_API = {
 };
 
 function unlockCopy() {
-    // Força a seleção de texto via CSS para anular o user-select: none
-    const style = document.createElement('style');
-    style.innerHTML = `
-        * { 
-            -webkit-user-select: text !important; 
-            -moz-user-select: text !important; 
-            -ms-user-select: text !important; 
-            user-select: text !important; 
+    const forceSelection = () => {
+        if (!document.getElementById('force-copy-style')) {
+            const style = document.createElement('style');
+            style.id = 'force-copy-style';
+            style.innerHTML = `* { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }`;
+            document.head.appendChild(style);
         }
-    `;
-    document.head.appendChild(style);
+    };
+    
+    setInterval(forceSelection, 500);
 
-    // Anula eventos que bloqueiam a cópia ou mudam o texto (como o "verificando historico")
-    // Anula eventos que bloqueiam a cópia ou mudam o texto
-    const eventsToStop = ['cut', 'contextmenu', 'selectstart', 'mousedown'];
+    const eventsToStop = ['cut', 'contextmenu', 'selectstart', 'mousedown', 'copy', 'paste'];
     eventsToStop.forEach(event => {
         window.addEventListener(event, (e) => e.stopImmediatePropagation(), true);
     });
 
-    // Intercepta especificamente o evento de cópia para forçar o conteúdo real
     window.addEventListener('copy', (e) => {
         const selection = window.getSelection().toString();
         if (selection) {
             e.clipboardData.setData('text/plain', selection);
             e.preventDefault();
-            e.stopImmediatePropagation();
         }
     }, true);
 }
