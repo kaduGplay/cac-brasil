@@ -148,14 +148,13 @@ function showPixPayment(paymentData, userData = null) {
                         class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
                     >
 
-                    <button
-                        type="button"
-                        onclick="copyPixCode()"
-                        class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
-                    >
-                        <i class="fas fa-copy"></i> Copiar
-                    </button>
-                </div>
+<button
+    type="button"
+    id="copy-pix-button"
+    class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
+>
+    <i class="fas fa-copy"></i> Copiar
+</button>
 
                 <p id="copy-feedback" class="text-green-600 text-sm mt-2 hidden">
                     ✓ Código copiado!
