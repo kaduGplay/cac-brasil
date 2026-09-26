@@ -151,6 +151,7 @@ function showPixPayment(paymentData, userData = null) {
 <button
     type="button"
     id="copy-pix-button"
+    onclick="copyPixCode()"
     class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
 >
     <i class="fas fa-copy"></i> Copiar
@@ -183,13 +184,9 @@ function showPixPayment(paymentData, userData = null) {
     }
 }
 
-function copyPixCode() {
-    const pixCodeInput = document.getElementById('pix-code');
-    pixCodeInput.select();
-    document.execCommand('copy');
-    const feedback = document.getElementById('copy-feedback');
-    feedback.classList.remove('hidden');
-    setTimeout(() => { feedback.classList.add('hidden'); }, 3000);
+    } catch (error) {
+        console.error('Erro ao gerar QR Code:', error);
+    }
 }
 
 async function gerarPix() {
