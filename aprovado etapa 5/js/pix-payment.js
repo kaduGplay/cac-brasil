@@ -134,18 +134,38 @@ function showPixPayment(paymentData, userData = null) {
             </div>
 
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Ou copie o código PIX:</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Ou copie o código PIX:
+                </label>
+
                 <div class="flex flex-col gap-2">
-                    <input type="text" id="pix-code" value="${pixCode}" readonly class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono">
-                    <button onclick="copyPixCode()" class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2">
+                    <input
+                        type="text"
+                        id="pix-code"
+                        value="${pixCode}"
+                        readonly
+                        onclick="copyPixCode()"
+                        class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="copyPixCode()"
+                        class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
+                    >
                         <i class="fas fa-copy"></i> Copiar
                     </button>
                 </div>
-                <p id="copy-feedback" class="text-green-600 text-sm mt-2 hidden">✓ Código copiado!</p>
+
+                <p id="copy-feedback" class="text-green-600 text-sm mt-2 hidden">
+                    ✓ Código copiado!
+                </p>
             </div>
 
             <div class="text-center">
-                <p class="text-sm text-gray-500">Verificando pagamento automaticamente...</p>
+                <p class="text-sm text-gray-500">
+                    Verificando pagamento automaticamente...
+                </p>
             </div>
         </div>
     `;
@@ -212,6 +232,40 @@ document.addEventListener('DOMContentLoaded', function() {
         gerarPix();
     }
 });
+
+window.copyPixCode = async function () {
+    const campo = document.getElementById('pix-code');
+    const aviso = document.getElementById('copy-feedback');
+
+    if (!campo || !campo.value.trim()) return;
+
+    let copiado = false;
+
+    try {
+        if (window.isSecureContext && navigator.clipboard) {
+            await navigator.clipboard.writeText(campo.value);
+            copiado = true;
+        }
+    } catch (erro) {}
+
+    if (!copiado) {
+        campo.focus();
+        campo.select();
+        campo.setSelectionRange(0, campo.value.length);
+
+        try {
+            copiado = document.execCommand('copy');
+        } catch (erro) {}
+    }
+
+    if (aviso) {
+        aviso.textContent = copiado
+            ? '✓ Código copiado!'
+            : 'Selecione o código e copie manualmente.';
+
+        aviso.classList.remove('hidden');
+    }
+};
 
 window.PIX_API = PIX_API;
 window.showPixPayment = showPixPayment;
