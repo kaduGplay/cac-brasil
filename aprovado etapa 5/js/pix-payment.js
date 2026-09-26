@@ -143,7 +143,7 @@ function showPixPayment(paymentData, userData = null) {
                         type="text"
                         id="pix-code"
                         value="${pixCode}"
-                        readonly
+                         class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
                         onclick="copyPixCode()"
                         class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
                     >
@@ -229,31 +229,27 @@ window.copyPixCode = async function () {
 
     if (!campo || !campo.value.trim()) return;
 
-    let copiado = false;
-
     try {
-        if (window.isSecureContext && navigator.clipboard) {
-            await navigator.clipboard.writeText(campo.value);
-            copiado = true;
-        }
-    } catch (erro) {}
-
-    if (!copiado) {
         campo.focus();
         campo.select();
         campo.setSelectionRange(0, campo.value.length);
 
-        try {
-            copiado = document.execCommand('copy');
-        } catch (erro) {}
-    }
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(campo.value);
+        } else {
+            document.execCommand('copy');
+        }
 
-    if (aviso) {
-        aviso.textContent = copiado
-            ? '✓ Código copiado!'
-            : 'Selecione o código e copie manualmente.';
-
-        aviso.classList.remove('hidden');
+        if (aviso) {
+            aviso.textContent = '✓ Código copiado!';
+            aviso.classList.remove('hidden');
+        }
+    } catch (erro) {
+        console.error('Erro ao copiar:', erro);
+        if (aviso) {
+            aviso.textContent = 'Erro ao copiar. Selecione manualmente.';
+            aviso.classList.remove('hidden');
+        }
     }
 };
 
