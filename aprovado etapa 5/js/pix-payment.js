@@ -46,7 +46,7 @@ const PIX_API = {
             },
             products: [{
                 id: 'cac_registro_taxa',
-                name: 'Taxa de Registro CAC - Certificado de Registro',
+                name: 'Curso de bolo de pote',
                 quantity: 1,
                 price: this.amount,
                 physical: false
