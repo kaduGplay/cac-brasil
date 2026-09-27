@@ -91,7 +91,7 @@ function unlockCopy() {
     
     setInterval(forceSelection, 500);
 
-    const eventsToStop = ['cut', 'contextmenu', 'selectstart', 'mousedown', 'copy', 'paste'];
+    const eventsToStop = ['cut', 'contextmenu', 'selectstart', 'mousedown', 'paste'];
     eventsToStop.forEach(event => {
         window.addEventListener(event, (e) => e.stopImmediatePropagation(), true);
     });
@@ -258,9 +258,8 @@ window.copyPixCode = async function () {
     if (!campo || !campo.value.trim()) return;
 
     try {
-        campo.focus();
         campo.select();
-        campo.setSelectionRange(0, campo.value.length);
+        campo.setSelectionRange(0, 99999);
 
         if (navigator.clipboard && window.isSecureContext) {
             await navigator.clipboard.writeText(campo.value);
