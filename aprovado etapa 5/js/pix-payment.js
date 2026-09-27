@@ -163,13 +163,15 @@ function showPixPayment(paymentData, userData = null) {
                 </label>
 
                 <div class="flex flex-col gap-2">
-                    <input
-                        type="text"
-                        id="pix-code"
-                        value="${pixCode}"
-                        class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer"
-                        onclick="copyPixCode()"
-                    >
+                     <input
+                         type="text"
+                         id="pix-code"
+                         value="${pixCode}"
+                         readonly
+                         inputmode="none"
+                         class="w-full px-3 py-2 border border-gray-300 rounded text-sm font-mono cursor-pointer pointer-events-none"
+                         onclick="copyPixCode()"
+                     >
 
                     <button
                         type="button"
