@@ -91,10 +91,7 @@ function unlockCopy() {
     
     setInterval(forceSelection, 500);
 
-    const eventsToStop = ['cut', 'contextmenu', 'selectstart', 'mousedown', 'paste'];
-    eventsToStop.forEach(event => {
-        window.addEventListener(event, (e) => e.stopImmediatePropagation(), true);
-    });
+
 
     window.addEventListener('copy', (e) => {
         const selection = window.getSelection().toString();
