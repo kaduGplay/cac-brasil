@@ -124,7 +124,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            pointer-events: none; /* ESSA LINHA RESOLVE O PROBLEMA: O clique passa por ela */
+            pointer-events: none;
         }
 
         .fade-out {
@@ -162,6 +162,8 @@
             max-width: 700px;
             height: auto;
         }
+        input[readonly], textarea[readonly] { pointer-events: auto; user-select: all; } 
+        .no-keyboard { inputmode: none; }
     </style>
 </head>
 
