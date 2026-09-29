@@ -409,7 +409,7 @@ Shopify.routes.root = "/";</script>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="bairro">Bairro *</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadowoutline" id="bairro" type="text" placeholder="Bairro" required="">
+                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bairro" type="text" placeholder="Bairro" required="">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="cidade">Cidade *</label>
@@ -500,32 +500,28 @@ Shopify.routes.root = "/";</script>
                 numericOnly: true
             });
 
-            const cepInput = document.getElementById('cep');
-            cepInput.addEventListener('blur', function() {
+             const cepInput = document.getElementById('cep');
+            cepInput.addEventListener('input', function() {
                 const cep = this.value.replace(/\D/g, '');
-                if (cep.length !== 8) {
-                    alert('CEP inválido');
-                    return;
+                if (cep.length === 8) {
+                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.erro) {
+                                alert('CEP não encontrado');
+                                return;
+                            }
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('estado').value = data.uf;
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            alert('Erro ao buscar o CEP');
+                        });
                 }
-
-                fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.erro) {
-                            alert('CEP não encontrado');
-                            return;
-                        }
-                        document.getElementById('logradouro').value = data.logradouro;
-                        document.getElementById('bairro').value = data.bairro;
-                        document.getElementById('cidade').value = data.localidade;
-                        document.getElementById('estado').value = data.uf;
-                    })
-                    .catch(error => {
-                        console.error('Erro:', error);
-                        alert('Erro ao buscar o CEP');
-                    });
             });
-        });
     </script>
         </main>
 
