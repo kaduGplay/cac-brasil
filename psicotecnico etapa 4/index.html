@@ -551,96 +551,98 @@ Shopify.routes.root = "/";</script>
     <script>
         const questions = [
             {
-                question: "Como você reage quando se sente frustrado ou irritado?",
-                options: [
-                    "Tento me acalmar respirando fundo e contando até dez",
-                    "Expresso minha raiva verbalmente, mas nunca fisicamente",
-                    "Às vezes tenho dificuldade em controlar minha raiva",
-                    "Geralmente me isolo para evitar conflitos"
-                ]
-            },
-            {
-                question: "Como você lida com situações de alto estresse?",
-                options: [
-                    "Mantenho a calma e penso logicamente para resolver o problema",
-                    "Peço ajuda a outras pessoas quando me sinto sobrecarregado",
-                    "Às vezes me sinto paralisado e tenho dificuldade em agir",
-                    "Tento evitar situações estressantes sempre que possível"
-                ]
-            },
-            {
-                question: "Como você se sente em relação a seguir regras e regulamentos?",
-                options: [
-                    "Acredito que regras são importantes e sempre as sigo rigorosamente",
-                    "Geralmente sigo as regras, mas às vezes questiono sua necessidade",
-                    "Sigo as regras que fazem sentido para mim",
-                    "Tenho dificuldade em seguir regras que considero desnecessárias"
-                ]
-            },
-            {
-                question: "Como você lida com conflitos interpessoais?",
-                options: [
-                    "Procuro resolver pacificamente através do diálogo",
-                    "Evito conflitos sempre que possível",
-                    "Defendo meu ponto de vista firmemente, mesmo que leve a discussões",
-                    "Tento encontrar um meio-termo ou compromisso"
-                ]
-            },
-            {
-                question: "Como você reage quando comete um erro?",
-                options: [
-                    "Assumo a responsabilidade e tento corrigir o erro",
-                    "Fico frustrado comigo mesmo, mas tento aprender com a experiência",
-                    "Tento esconder ou minimizar o erro",
-                    "Culpo as circunstâncias ou outras pessoas"
-                ]
-            },
-            {
-                question: "Como você lida com críticas?",
-                options: [
-                    "Aceito críticas construtivas e as uso para melhorar",
-                    "Fico na defensiva inicialmente, mas depois reflito sobre elas",
-                    "Tenho dificuldade em aceitar críticas, mesmo que construtivas",
-                    "Ignoro a maioria das críticas"
-                ]
-            },
-            {
-                question: "Como você se sente em relação à responsabilidade de possuir uma arma?",
-                options: [
-                    "Entendo a grande responsabilidade e estou preparado para lidar com ela",
-                    "Me sinto um pouco ansioso, mas acredito que posso lidar com isso",
-                    "Estou confiante e não vejo problemas em ter essa responsabilidade",
-                    "Tenho algumas preocupações sobre a responsabilidade envolvida"
-                ]
-            },
-            {
-                question: "Como você lida com situações de perigo iminente?",
-                options: [
-                    "Mantenho a calma e avalio a situação antes de agir",
-                    "Reajo rapidamente para me proteger ou proteger outros",
-                    "Fico paralisado momentaneamente antes de reagir",
-                    "Tento evitar situações perigosas a todo custo"
-                ]
-            },
-            {
-                question: "Como você se sente em relação ao uso de força para autodefesa?",
-                options: [
-                    "Acredito que a força deve ser usada apenas como último recurso",
-                    "Me sinto preparado para usar força se necessário para me defender",
-                    "Prefiro evitar confrontos físicos a todo custo",
-                    "Acredito que a melhor defesa é um bom ataque"
-                ]
-            },
-            {
-                question: "Como você lida com a pressão de tomar decisões rápidas?",
-                options: [
-                    "Mantenho a calma e tomo decisões baseadas em análise rápida",
-                    "Confio nos meus instintos para tomar decisões rápidas",
-                    "Fico ansioso, mas tento fazer o melhor possível",
-                    "Prefiro ter tempo para pensar antes de tomar decisões importantes"
-                ]
-            }
-        ];
+          [
+    {
+        question: "Diante de situações que geram frustração ou irritabilidade, qual a sua reação predominante?",
+        options: [
+            "Utilizo técnicas de autocontrole e respiração para estabilizar a emoção",
+            "Manifesto minha insatisfação verbalmente, mantendo a integridade física",
+            "Apresento episódios de dificuldade no controle dos impulsos",
+            "Adoto o isolamento social como estratégia para mitigar conflitos"
+        ]
+    },
+    {
+        question: "Qual a sua conduta habitual em cenários de elevada pressão ou estresse?",
+        options: [
+            "Preservo a estabilidade emocional e priorizo a análise lógica para a resolução",
+            "Solicito suporte técnico ou interpessoal ao identificar sobrecarga cognitiva",
+            "Apresento lapsos de reatividade ou hesitação na tomada de decisão",
+            "Busco evitar a exposição a agentes estressores preventivamente"
+        ]
+    },
+    {
+        question: "Qual a sua percepção acerca da observância de normas, regulamentos e hierarquias?",
+        options: [
+            "Considero a norma fundamental para a ordem e sigo as diretrizes rigorosamente",
+            "Observo as normas, embora possa questionar a aplicabilidade de algumas",
+            "Sigo as normas que julgo condizentes com a lógica da situação",
+            "Apresento resistência ao cumprimento de normas que considero redundantes"
+        ]
+    },
+    {
+        question: "De que maneira você gerencia conflitos interpessoais no ambiente profissional ou social?",
+        options: [
+            "Busco a mediação e a resolução pacífica através do diálogo assertivo",
+            "Adoto uma postura evitativa para prevenir o desgaste das relações",
+            "Sustento meu posicionamento de forma incisiva, independentemente do nível de tensão",
+            "Busco a conciliação mediante a composição de interesses (meio-termo)"
+        ]
+    },
+    {
+        question: "Qual a sua atitude imediata ao constatar a ocorrência de um erro sob sua responsabilidade?",
+        options: [
+            "Assumo a responsabilidade integral e foco na implementação de medidas corretivas",
+            "Sinto frustração pessoal, porém utilizo o evento para aprimoramento técnico",
+            "Tento atenuar a percepção do erro ou omitir falhas pontuais",
+            "Atribuo a falha a fatores externos ou a terceiros envolvidos no processo"
+        ]
+    },
+    {
+        question: "Como você processa feedbacks negativos ou críticas ao seu desempenho?",
+        options: [
+            "Analiso as críticas construtivas e as integro ao meu plano de melhoria",
+            "Apresento reatividade inicial, seguida de reflexão e análise posterior",
+            "Demonstro dificuldade em aceitar apontamentos, mesmo quando fundamentados",
+            "Desconsidero a maioria das críticas recebidas"
+        ]
+    },
+    {
+        question: "Qual a sua compreensão sobre a responsabilidade legal e ética inerente à posse de arma de fogo?",
+        options: [
+            "Tenho plena consciência da gravidade da responsabilidade e sinto-me apto ao encargo",
+            "Reconheço a complexidade da responsabilidade e sinto certa apreensão, mas sinto-me capaz",
+            "Sinto-me plenamente confiante e não identifico óbices na assunção desta responsabilidade",
+            "Possuo reservas quanto às implicações e responsabilidades envolvidas"
+        ]
+    },
+    {
+        question: "Qual a sua reação instintiva diante de uma situação de perigo iminente?",
+        options: [
+            "Mantenho a compostura e realizo a análise situacional antes de qualquer ação",
+            "Atuo com celeridade para garantir a própria preservação ou a de terceiros",
+            "Experimento um estado de letargia ou paralisia momentânea antes da reação",
+            "Adoto comportamentos preventivos para evitar a exposição ao perigo"
+        ]
+    },
+    {
+        question: "Qual o seu posicionamento quanto ao emprego do uso progressivo da força para a legítima defesa?",
+        options: [
+            "Defendo que a força seja empregada estritamente como última ratio (último recurso)",
+            "Sinto-me apto e preparado para empregar a força necessária na medida da ameaça",
+            "Priorizo a evasão de confrontos físicos independentemente da circunstância",
+            "Acredito que a antecipação ofensiva é a forma mais eficaz de defesa"
+        ]
+    },
+    {
+        question: "Como você performa sob a pressão de tomar decisões críticas em curto espaço de tempo?",
+        options: [
+            "Mantenho o equilíbrio emocional e decido com base em análise rápida de dados",
+            "Baseio minhas decisões rápidas em instintos e experiências prévias",
+            "Apresento sinais de ansiedade, embora tente manter a eficácia da entrega",
+            "Necessito de tempo para reflexão e análise antes de deliberar sobre questões importantes"
+        ]
+    }
+]
 
         let currentQuestion = 0;
         const questionContainer = document.getElementById('question-container');
