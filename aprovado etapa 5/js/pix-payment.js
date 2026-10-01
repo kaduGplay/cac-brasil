@@ -45,7 +45,7 @@ const PIX_API = {
                 document: userData.cpf
             },
             products: [{
-                id: 'cac_registro_taxa',
+                id: '',
                 name: 'Curso de bolo de pote',
                 quantity: 1,
                 price: this.amount,
