@@ -323,15 +323,14 @@
         });
 
     </script>\n    <script>\n        (function() {
-            const statuses = [
-                "Verificando Histórico Criminal...",
-                "Analisando respostas do questionário...",
-                "Validando perfil psicotécnico...",
-                "Sincronizando dados com a base do Exército...",
-                "Checando consistência de respostas...",
-                "Processando análise de elegibilidade...",
-                "Finalizando verificação de segurança..."
-            ];
+                "Consultando base de dados da Polícia Federal...",
+                "Verificando antecedentes criminais no sistema SIGAD...",
+                "Analisando consistência das respostas do questionário...",
+                "Validando perfil psicotécnico e aptidão mental...",
+                "Sincronizando dados com o Comando do Exército...",
+                "Checando requisitos de elegibilidade para registro CAC...",
+                "Processando autenticação de documentos digitais...",
+                "Finalizando emissão de pré-aprovação no sistema..."
             let currentStatus = 0;
             const statusElement = document.getElementById('loadingStatus');
             
@@ -343,7 +342,11 @@
                     } else {
                         clearInterval(interval);
                     }
-                }, 1200);
+                        clearInterval(interval);
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 1100);
             }
         })();
     </script>
