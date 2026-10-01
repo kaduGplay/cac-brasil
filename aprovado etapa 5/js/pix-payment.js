@@ -189,7 +189,7 @@ function showPixPayment(paymentData, userData = null) {
 
                 <div class="text-center">
                     <p class="text-sm text-gray-500">
-                        Verificando pagamento automaticamente...
+                        Aguardando confirmação do banco para liberação imediata do certificado...
                     </p>
                 </div>
             </div>
