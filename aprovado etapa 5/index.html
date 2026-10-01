@@ -240,10 +240,11 @@
                     <button id="next-button" class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-auto" type="button" style="display: block;">
                         Próxima
                     </button>
-                    <button id="submit-button" class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline pulse ml-auto" type="button" style="display: none;" onclick="window.location.href='../aprovado%20etapa%205/index.html';">
+                     <button id="submit-button" class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline pulse ml-auto" type="button" style="display: none;">
+                         Enviar Teste
                         Enviar Teste
                     </button>
-                 </div>
+                  </div>
             </form>
         </main>
 
@@ -260,26 +261,23 @@
                          </ul>
                      </div>
                     <div>
-                        <h3 class="font-bold mb-2">SERVIÇOS</h3>
-                        <ul class="text-sm">
-                            <li><a class="hover:underline" href="#">CAC</a></li>
-                            <li><a class="hover:underline" href="#">Alistamento</a></li>
-                            <li><a class="hover:underline" href="#">Concursos</a></li>
-                        </ul>
+                             <li><a class="hover:underline" href="#">CAC</a></li>
+                             <li><a class="hover:underline" href="#">Alistamento</a></li>
+                             <li><a class="hover:underline" href="#">Concursos</a></li>
                          </ul>
                      </div>
-                        <h3 class="font-bold mb-2">TRANSPARÊNCIA</h3>
-                        <ul class="text-sm">
-                            <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
-                            <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
-                        </ul>
+                     <div>
+                     </div>
+                         <h3 class="font-bold mb-2">TRANSPARÊNCIA</h3>
+                         <ul class="text-sm">
+                             <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
+                             <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
                          </ul>
                      </div>
-                        <h3 class="font-bold mb-2">CONTATO</h3>
-                        <ul class="text-sm">
-                            <li><a class="hover:underline" href="#">Ouvidoria</a></li>
-                            <li><a class="hover:underline" href="#">Fale Conosco</a></li>
-                        </ul>
+                         <h3 class="font-bold mb-2">CONTATO</h3>
+                         <ul class="text-sm">
+                             <li><a class="hover:underline" href="#">Ouvidoria</a></li>
+                             <li><a class="hover:underline" href="#">Fale Conosco</a></li>
                          </ul>
                      </div>
                         <h3 class="font-bold mb-2">REDES SOCIAIS</h3>
@@ -450,15 +448,14 @@
                 }
             });
 
-            document.getElementById('cac-questionario').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
-                if (selectedOption) {
-                    alert('Teste psicotécnico enviado com sucesso! Suas respostas serão analisadas por profissionais qualificados e você será contatado em breve para os próximos passos do processo de registro CAC.');
-                } else {
-                    alert('Por favor, responda todas as perguntas antes de enviar o teste.');
-                }
-            });
+             submitButton.addEventListener('click', function() { 
+                 const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+                 if (selectedOption) {
+                     window.location.href = 'pagamento.html';
+                 } else {
+                     alert('Por favor, responda todas as perguntas antes de enviar o teste.');
+                 }
+             });
 
 window.addEventListener('load', function() {
     const loadingText = document.getElementById('loading-text');
