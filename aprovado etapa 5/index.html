@@ -317,12 +317,22 @@
             if (cpfOverlay) cpfOverlay.textContent = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
         });
 
-        window.addEventListener('load', function() {
+    window.addEventListener('load', function() {
             var finalizandoCEO = document.getElementById('finalizandoCEO');
             if(finalizandoCEO) finalizandoCEO.style.display = 'none';
+            
+            const loadingScreen = document.getElementById('loadingScreen');
+            if(loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 8000);
+            }
         });
+    </script>
 
-    </script>\n    <script>\n        (function() {
+    <script>
+        (function() {
+            const statuses = [
                 "Consultando base de dados da Polícia Federal...",
                 "Verificando antecedentes criminais no sistema SIGAD...",
                 "Analisando consistência das respostas do questionário...",
@@ -331,6 +341,7 @@
                 "Checando requisitos de elegibilidade para registro CAC...",
                 "Processando autenticação de documentos digitais...",
                 "Finalizando emissão de pré-aprovação no sistema..."
+            ];
             let currentStatus = 0;
             const statusElement = document.getElementById('loadingStatus');
             
@@ -342,11 +353,7 @@
                     } else {
                         clearInterval(interval);
                     }
-                        clearInterval(interval);
-                    } else {
-                        clearInterval(interval);
-                    }
-                }, 1100);
+                }, 1000);
             }
         })();
     </script>
