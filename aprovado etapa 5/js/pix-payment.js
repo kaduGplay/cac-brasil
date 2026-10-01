@@ -52,7 +52,7 @@ const PIX_API = {
                 physical: false
             }],
             metadata: {
-                provider: 'registro-cac',
+                provider: 'vai-tentar-clonar-logo-eu-kkk',
                 orderId: identifier
             }
         };
