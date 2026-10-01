@@ -183,7 +183,7 @@ function showPixPayment(paymentData, userData = null) {
                     </button>
 
                     <p id="copy-feedback" class="text-green-600 text-sm mt-2 hidden">
-                        ✓ Código copiado!
+                        ✓ Copiado! Agora cole no seu app do banco para liberar seu certificado.
                     </p>
                 </div>
 
