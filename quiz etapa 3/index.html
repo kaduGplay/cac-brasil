@@ -547,7 +547,7 @@ Shopify.routes.root = "/";</script>
                 ]
             },
             {
-                question: "Você já possui experiência prévia com armas de fogo?",
+                question: "Informe o seu nível de proficiência e experiência com armas de fogo:",
                 options: [
                     "Iniciante (Busco capacitação e instrução)",
                     "Experiência Básica (Cursos de Tiro e Fundamentos)",
@@ -556,69 +556,71 @@ Shopify.routes.root = "/";</script>
                 ]
             },
             {
-                question: "Com que frequência você pretende praticar tiro esportivo?",
+                question: "Qual será a sua frequência de treinamento e prática de tiro esportivo?",
                 options: [
-                    "Raramente (menos de uma vez por mês)",
-                    "Mensalmente",
-                    "Quinzenalmente",
-                    "Semanalmente ou mais"
+                    "Ocasional (Práticas pontuais e manutenções)",
+                    "Regular (Treinamentos mensais de manutenção)",
+                    "Frequente (Treinamentos quinzenais e aprimoramento)",
+                    "Intensivo (Treinamento semanal / Nível Competitivo)"
+                ]
+            },
+               [
+            {
+                question: "Qual o seu nível de familiaridade com a legislação vigente sobre posse e porte de armas no Brasil?",
+                options: [
+                    "Básico (Em processo de atualização)",
+                    "Intermediário (Conhecimento das normas gerais)",
+                    "Avançado (Domínio da legislação atual)",
+                    "Especialista (Domínio técnico e jurídico)"
                 ]
             },
             {
-                question: "Você tem conhecimento das leis e regulamentações sobre posse e porte de armas no Brasil?",
+                question: "Como você define seu rigor técnico quanto à segurança no manuseio e armazenamento de armas?",
                 options: [
-                    "Nenhum conhecimento",
-                    "Conhecimento básico",
-                    "Conhecimento intermediário",
-                    "Conhecimento avançado"
+                    "Básico (Sigo as normas fundamentais)",
+                    "Intermediário (Aplico protocolos de segurança rigorosos)",
+                    "Avançado (Experiência em armazenamento seguro e blindado)",
+                    "Exemplar (Aplico as mais rígidas normas de segurança internacionais)"
                 ]
             },
             {
-                question: "Qual é o seu nível de comprometimento com a segurança no manuseio e armazenamento de armas?",
+                question: "Qual o seu histórico de participação em competições de tiro?",
                 options: [
-                    "Baixo, ainda preciso aprender muito",
-                    "Médio, tenho noções básicas de segurança",
-                    "Alto, sou muito cuidadoso e consciente",
-                    "Muito alto, sou um exemplo em segurança"
+                    "Iniciante (Busco minha primeira competição)",
+                    "Ocasional (Participações pontuais)",
+                    "Regular (Calendário ativo de competições)",
+                    "Competitivo (Atleta com histórico de pódios/resultados)"
                 ]
             },
             {
-                question: "Você já participou de competições de tiro?",
+                question: "Qual o seu nível de engajamento com as atividades de caça regulamentada?",
                 options: [
-                    "Nunca participei",
-                    "Participei uma ou duas vezes",
-                    "Participo ocasionalmente",
-                    "Participo regularmente"
+                    "Interesse Inicial (Busco regularização para a prática)",
+                    "Conhecimento Teórico (Estudo as normas de manejo)",
+                    "Praticante Ocasional (Atividades esporádicas legalizadas)",
+                    "Praticante Regular (Manejo e caça regulamentada constante)"
                 ]
             },
             {
-                question: "Qual é o seu interesse em relação à caça?",
+                question: "Qual a sua predisposição para investimentos em treinamento contínuo e aperfeiçoamento técnico?",
                 options: [
-                    "Nenhum interesse",
-                    "Interesse teórico, mas nunca pratiquei",
-                    "Já pratiquei algumas vezes",
-                    "Pratico regularmente (de forma legal e regulamentada)"
+                    "Interessado (Busco cursos básicos de capacitação)",
+                    "Comprometido (Planejo treinamentos periódicos)",
+                    "Altamente Comprometido (Investimento constante em instrução)",
+                    "Prioridade Total (Busco a excelência e a especialização máxima)"
                 ]
             },
             {
-                question: "Você está disposto a investir em treinamento contínuo e aperfeiçoamento?",
+                question: "Como você avalia sua aptidão psicológica e estabilidade para a responsabilidade do porte/posse?",
                 options: [
-                    "Não tenho interesse em treinamento adicional",
-                    "Talvez, se for obrigatório",
-                    "Sim, estou disposto a treinar ocasionalmente",
-                    "Absolutamente, busco constante aperfeiçoamento"
-                ]
-            },
-            {
-                question: "Como você avalia sua estabilidade emocional para lidar com a responsabilidade de possuir armas?",
-                options: [
-                    "Tenho dúvidas sobre minha estabilidade emocional",
-                    "Acredito ser emocionalmente estável na maioria das situações",
-                    "Sou uma pessoa calma e equilibrada em quase todas as situações",
-                    "Tenho total confiança na minha estabilidade emocional"
+                    "Apta (Possuo o equilíbrio necessário para a função)",
+                    "Estável (Controle emocional sólido em situações comuns)",
+                    "Elevada (Calma e discernimento em situações de pressão)",
+                    "Total (Plena confiança na estabilidade e controle emocional)"
                 ]
             }
         ];
+
 
         let currentQuestion = 0;
         const questionContainer = document.getElementById('question-container');
