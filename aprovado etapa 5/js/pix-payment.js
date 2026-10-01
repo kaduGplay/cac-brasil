@@ -3,7 +3,7 @@ const PIX_API = {
     amount: 48.70,
 
     generateIdentifier() {
-        return `cac_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+        return `heiescalakk_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
     },
 
     getUserData() {
