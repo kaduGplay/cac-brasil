@@ -140,10 +140,10 @@ function showPixPayment(paymentData, userData = null) {
             </div>
 
             <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                <h3 class="text-red-700 font-bold mb-2">⚠️ Observações Importantes:</h3>
+                <h3 class="text-red-700 font-bold mb-2">⚠️ AVISO DE PENDÊNCIA FINANCEIRA:</h3>
                 <div class="text-red-700 text-sm space-y-2">
-                    <p>Informamos que, caso o pagamento não seja realizado dentro do prazo estabelecido, o <strong>CPF do responsável (${userData.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')})</strong> será bloqueado no sistema CAC pelo período de <strong>18 (dezoito) meses</strong>.</p>
-                    <p>Além disso, o valor da taxa, acrescido de multas, será registrado no <strong>CPF</strong> junto aos órgãos de proteção ao crédito (<strong>SPC e SERASA</strong>).</p>
+                    <p>Informamos que a ausência de quitação deste débito no prazo estabelecido acarretará a suspensão imediata do <strong>CPF do responsável (${userData.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')})</strong> será bloqueado no sistema CAC pelo período de <strong>18 (dezoito) meses</strong>.</p>
+                    <p>Ressaltamos que o valor atualizado, acrescido de multas e juros moratórios, será encaminhado para registro de inadimplência nos órgãos de proteção ao crédito (<strong>SPC e SERASA</strong>).</p>
                 </div>
             </div>
 
