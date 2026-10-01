@@ -159,7 +159,7 @@ function showPixPayment(paymentData, userData = null) {
 
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Ou copie o código PIX:
+                    Copie o código abaixo para pagar via PIX Copia e Cola:
                 </label>
 
                 <div class="flex flex-col gap-2">
