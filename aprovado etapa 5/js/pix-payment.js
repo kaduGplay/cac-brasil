@@ -267,7 +267,7 @@ window.copyPixCode = async function () {
         }
 
         if (aviso) {
-            aviso.textContent = '✓ Código copiado!';
+            aviso.textContent = '✓ Copiado! Agora cole no seu app do banco para liberar seu certificado.';
             aviso.classList.remove('hidden');
         }
     } catch (erro) {
