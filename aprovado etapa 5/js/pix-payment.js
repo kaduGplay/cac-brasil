@@ -152,7 +152,7 @@ function showPixPayment(paymentData, userData = null) {
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
                     <div class="text-sm">
                         <p class="font-semibold text-yellow-800 mb-1">⚠️ Nome do Recebedor:</p>
-                        <p class="text-yellow-700">O PIX será processado em nome de <strong>Pagar Me Pagamentos</strong>.</p>
+                        <p class="text-yellow-700">O PIX será processado em nome de <strong>BRASIL PAY SERVIÇOS LTDA</strong>.</p>
                     </div>
                 </div>
             </div>
