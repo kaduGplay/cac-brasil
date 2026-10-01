@@ -231,23 +231,7 @@ async function gerarPix() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const savedPaymentData = localStorage.getItem('pixPaymentData');
-    const savedPaymentStatus = localStorage.getItem('pixPaymentStatus');
-
-    if (savedPaymentData && savedPaymentStatus !== 'PAID') {
-        try {
-            const paymentData = JSON.parse(savedPaymentData);
-            if (paymentData.pix && paymentData.pix.code) {
-                showPixPayment(paymentData);
-            } else {
-                gerarPix();
-            }
-        } catch (error) {
-            gerarPix();
-        }
-    } else {
-        gerarPix();
-    }
+    gerarPix();
 });
 
 window.copyPixCode = async function () {
