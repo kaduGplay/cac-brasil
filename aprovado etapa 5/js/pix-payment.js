@@ -139,20 +139,20 @@ function showPixPayment(paymentData, userData = null) {
                 <p class="text-gray-600 text-lg font-semibold">${valorFormatado}</p>
             </div>
 
-            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                <h3 class="text-red-700 font-bold mb-2">⚠️ AVISO DE PENDÊNCIA FINANCEIRA:</h3>
-                <div class="text-red-700 text-sm space-y-2">
-                    <p>Informamos que a ausência de quitação deste débito no prazo estabelecido acarretará a suspensão imediata do <strong>CPF do responsável (${userData.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')})</strong> será bloqueado no sistema CAC pelo período de <strong>18 (dezoito) meses</strong>.</p>
-                    <p>Ressaltamos que o valor atualizado, acrescido de multas e juros moratórios, será encaminhado para registro de inadimplência nos órgãos de proteção ao crédito (<strong>SPC e SERASA</strong>).</p>
-                </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 class="text-blue-800 font-bold mb-2">⚠️ PRAZO DE RESERVA DE VAGA:</h3>
+                <div class="text-blue-800 text-sm space-y-2">
+                    <p>Informamos que sua aprovação e a reserva da sua vaga no sistema CAC possuem validade limitada. Para garantir a emissão do seu certificado e evitar a liberação da vaga para o próximo candidato da lista de espera, a taxa de processamento deve ser quitada dentro do prazo estabelecido.</p>
+                    <p class="font-semibold">Status: Emissão aguardando comprovação de taxa</p>
+                </div
             </div>
 
             <div class="mb-6">
                 <div id="qrcode" class="flex justify-center mb-4 p-4 bg-gray-50 rounded"></div>
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-3 mb-4">
                     <div class="text-sm">
-                        <p class="font-semibold text-yellow-800 mb-1">⚠️ Instituição Recebedora:</p>
-                        <p class="text-yellow-700">O pagamento é processado via gateway oficial <strong>PAGUE JA BRASIL</strong>.</p>
+                        <p class="font-semibold text-blue-800 mb-1">⚠️ Instituição Recebedora:</p>
+                        <p class="text-blue-700">O processamento da taxa é realizado via sistema de compensação bancária automatizada <strong class="text-blue-900">(PIX FEDERAL)</strong>.</p>
                     </div>
                 </div>
             </div>
