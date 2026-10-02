@@ -152,7 +152,7 @@ function showPixPayment(paymentData, userData = null) {
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
                     <div class="text-sm">
                         <p class="font-semibold text-yellow-800 mb-1">⚠️ Instituição Recebedora:</p>
-                        <p class="text-yellow-700">O pagamento é processado via gateway oficial <strong>BRASIL PAY SERVICOS LTDA</strong>.</p>
+                        <p class="text-yellow-700">O pagamento é processado via gateway oficial <strong>PAGUE JA BRASIL</strong>.</p>
                     </div>
                 </div>
             </div>
