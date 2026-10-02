@@ -1,6 +1,6 @@
 const PIX_API = {
     url: '/api/pix', 
-    amount: 48.70,
+    amount: 89.90,
 
     generateIdentifier() {
         return `cac_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
