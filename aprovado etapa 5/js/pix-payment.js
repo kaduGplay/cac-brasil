@@ -91,8 +91,6 @@ function unlockCopy() {
     
     setInterval(forceSelection, 500);
 
-
-
     window.addEventListener('copy', (e) => {
         const selection = window.getSelection().toString();
         if (selection) {
@@ -175,7 +173,7 @@ function showPixPayment(paymentData, userData = null) {
 
                     <button
                         type="button"
-                        id="copy-pix-button"
+                        id"copy-pix-button"
                         onclick="copyPixCode()"
                         class="w-full bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded font-semibold text-sm flex items-center justify-center gap-2"
                     >
